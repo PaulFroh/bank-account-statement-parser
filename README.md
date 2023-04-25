@@ -28,7 +28,7 @@ python GUI_pathfinder.py
 
 
 # Usage
-Firstly you have to open the file "Budget-Book-Template.xlsx". You will the template for your personal Excel file.
+Firstly you have to open the file "Budget-Book-Template.xlsx". You will see the template for your personal Excel file.
 
 ![](images/excel.jpg)
 
