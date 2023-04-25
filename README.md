@@ -20,7 +20,7 @@ Frist you need to install some packages to run the python file. For that we prov
 ```bash
 pip install -r requirements.txt
 ```
-After the successful installation yqu are ready to go. To execute the program jsut double click on the GUI_pathfinder.py or use the command line with the command:
+After the successful installation yqu are ready to go. To execute the program just double click on the GUI_pathfinder.py or use the command line with the command:
 ```bash
 python GUI_pathfinder.py
 ```
