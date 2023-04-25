@@ -90,7 +90,7 @@ class GUI:   # definition of the class
             print(f"PDF-Filepath: {pdf_file_path}")
             
             if parse_kontoauszug.execute_parse(excel_file_path, pdf_file_path):
-                messagebox.INFO("The file was successfully parsed")
+                messagebox.showinfo("Info", "The file was successfully parsed")
 
             print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:
