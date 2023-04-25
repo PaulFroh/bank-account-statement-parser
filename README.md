@@ -41,7 +41,7 @@ Firstly you have to open the file "Budget-Book-Template.xlsx". You will see the 
 When you are done with the adjustment of the Excel-file you ***have to safe and close the Excel file before starting the "bank-account-statement-parser-1.0.0.exe"*** by double cklicking it.
 - The Window "Path-Configurator" will pop up you will have to choose two paths.
 
-![](images/simple_gui.jpg)
+![](images/gui.jpg)
 
 - The first path has to lead to the Excel-file which is called "Budget-Book-Template.xlsx".
     - If you would like to set this file to default you can do so by ticking the checkbox below. This is helpful since you will likely use one excel file for a whole year.
