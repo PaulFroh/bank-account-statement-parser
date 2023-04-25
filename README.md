@@ -37,13 +37,13 @@ Firstly you have to open the file "Budget-Book-Template.xlsx". You will the temp
 - ***Important***: The sub-categories will also be ***the kewords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more kewords you will generate. As a result the overview will be more accurate.
 
 When you are done with the adjustment of the Excel-file you can start the "bank-account-statement-parser-1.0.0.exe" by double cklicking it.
--The Window "Path-Configurator" will pop up you will have to choose two paths.
+- The Window "Path-Configurator" will pop up you will have to choose two paths.
 ![](images/simple_gui.jpg)
--The first path has to lead to the Excel-file which is called "Budget-Book-Template.xlsx".
+- The first path has to lead to the Excel-file which is called "Budget-Book-Template.xlsx".
     - If you would like to set this file to default you can do so by ticking the checkbox below. This is helpful since you will likely use one excel file for a whole year.
--The second path has to lead to your bank-account-statement pdf which you should collect in one folder for each year.
+- The second path has to lead to your bank-account-statement pdf which you should collect in one folder for each year.
     - If you would like to upload a whole bunch of pdf's together, simply tick the checkbox below and choose for example the whole 2023 folder with all your pdf's of 2023
--Make sure you collect all your bank account statements for one year in one folder this makes it easy for you to feed the program with all of them together.
--When you are done press the Transfer-Button on the bottom-left corner and the parsing process will start.
--As soon as the process is finished you will see a message that everything has been transfered successfully.
--Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
+- Make sure you collect all your bank account statements for one year in one folder this makes it easy for you to feed the program with all of them together.
+- When you are done press the Transfer-Button on the bottom-left corner and the parsing process will start.
+- As soon as the process is finished you will see a message that everything has been transfered successfully.
+- Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
