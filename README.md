@@ -29,7 +29,9 @@ python GUI_pathfinder.py
 
 # Usage
 Firstly you have to open the file "Budget-Book-Template.xlsx". You will the template for your personal Excel file.
+
 ![](images/excel.jpg)
+
 - Balance, Income, Expanses and Balance will be filled automaticly
 - The cell called "CATEGORIES" will stay the same. It just tells you that now the list of different categories will start underneath
 - The mainstep you have to accomplish is to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORIE as many SUB-CATEGORIES.
@@ -38,7 +40,9 @@ Firstly you have to open the file "Budget-Book-Template.xlsx". You will the temp
 
 When you are done with the adjustment of the Excel-file you can start the "bank-account-statement-parser-1.0.0.exe" by double cklicking it.
 - The Window "Path-Configurator" will pop up you will have to choose two paths.
+- 
 ![](images/simple_gui.jpg)
+
 - The first path has to lead to the Excel-file which is called "Budget-Book-Template.xlsx".
     - If you would like to set this file to default you can do so by ticking the checkbox below. This is helpful since you will likely use one excel file for a whole year.
 - The second path has to lead to your bank-account-statement pdf which you should collect in one folder for each year.
