@@ -48,6 +48,6 @@ When you are done with the adjustment of the Excel-file you ***have to safe and 
 - The second path has to lead to your bank-account-statement pdf which you should collect in one folder for each year.
     - If you would like to upload a whole bunch of pdf's together, simply tick the checkbox below and choose for example the whole 2023 folder with all your pdf's of 2023
 - Make sure you collect all your bank account statements for one year in one folder this makes it easy for you to feed the program with all of them together.
-- When you are done press the Transfer-Button on the bottom-left corner and the parsing process will start.
+- When you are done press the Transfer-Button on the bottom-right corner and the parsing process will start.
 - As soon as the process is finished you will see a message that everything has been transfered successfully.
 - Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
