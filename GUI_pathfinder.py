@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import parse_kontoauszug
 import config_managment
 
@@ -88,7 +88,9 @@ class GUI:   # definition of the class
             checkbox_value = self.check_state.get()
             print(f"Excel-Filepath: {excel_file_path}")
             print(f"PDF-Filepath: {pdf_file_path}")
-            parse_kontoauszug.execute_parse(excel_file_path, pdf_file_path)
+            
+            if parse_kontoauszug.execute_parse(excel_file_path, pdf_file_path):
+                messagebox.INFO("The file was successfully parsed")
 
             print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:

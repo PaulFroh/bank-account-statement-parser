@@ -199,8 +199,11 @@ def execute_parse(path_excel, path_to_pdfs):
         
         else:
             messagebox.showerror(title='Error', message='This PDF file does not exist!')
+            return False
     except Exception as e:
         messagebox.showerror(title='Error', message='An error has occurred!\n' + str(e))
+        return False
+    return True
 
 
 def export_to_excel(path_excel, dataframe, sheet_name):
