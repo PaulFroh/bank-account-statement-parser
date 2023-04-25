@@ -40,7 +40,7 @@ Firstly you have to open the file "Budget-Book-Template.xlsx". You will the temp
 
 When you are done with the adjustment of the Excel-file you can start the "bank-account-statement-parser-1.0.0.exe" by double cklicking it.
 - The Window "Path-Configurator" will pop up you will have to choose two paths.
-- 
+
 ![](images/simple_gui.jpg)
 
 - The first path has to lead to the Excel-file which is called "Budget-Book-Template.xlsx".
