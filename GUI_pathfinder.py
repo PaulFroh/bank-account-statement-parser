@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import Entry, filedialog, messagebox
 import parse_kontoauszug
 import config_managment
 
@@ -20,7 +20,14 @@ class GUI:   # definition of the class
         self.label = tk.Label(self.root, text="Excel-File path:", font=('Arial',11))   # adds a Label so people know what the programm expects
         self.label.grid(column=0, row=2, padx="10", pady="10")
         # entry for the Excel file
-        self.entry = tk.Entry (self.root, width=50, font=('Arial',11))              # ads the entry field 
+        self.entry = tk.Entry (self.root, text="Hallo", width=50, font=('Arial',11))              # ads the entry field 
+        
+        excel_path = config_managment.get_excel_path()
+        if excel_path != None:
+            self.entry.delete(0, "end")
+            self.entry.insert(0, excel_path)  
+        
+        
         self.entry.grid(column=1, row=2, padx="10", pady="10")
         # button for adding an Excel-file path
         self.button = tk.Button(self.root, text="Choose path", font=('Arial', 10), bg="lightgrey", command=lambda: self.excel_directory(self.entry))  # if you klick on the button the funktion show_directory will be passed and called whenever the button is klicked
@@ -54,6 +61,7 @@ class GUI:   # definition of the class
     
 
         self.root.mainloop()
+    
 
         
         # method to open excel path
@@ -77,7 +85,7 @@ class GUI:   # definition of the class
             entry_1.insert(0, path)  # insert the selected file path
                     
    
-   # Datentransfer
+   # Datatransfer
     def transfer_data(self):
         excel_file_path = self.entry.get()
         pdf_file_path = self.entry_1.get()
@@ -95,6 +103,9 @@ class GUI:   # definition of the class
             print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:
                 config_managment.write_config(excel_file_path)
+
+
+
 
     
     
