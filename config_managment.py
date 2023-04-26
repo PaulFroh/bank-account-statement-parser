@@ -6,7 +6,7 @@ config_path = '.' + os.sep + 'parser_config' + os.sep + 'config.json'
 def load_config():
     global config_path
     if os.path.exists(config_path):
-        f = open('config/config.json')
+        f = open(config_path)
         config_json = json.load(f)
 
         return config_json
