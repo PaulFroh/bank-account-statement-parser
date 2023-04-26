@@ -19,7 +19,7 @@ def load_categories_from_excel(path):
     last_category = ''
     category_start = False
     for index, row in categories_raw.iterrows():
-        print(row)
+        #print(row)
         if not category_start and pd.isna(row["CATEGORY"]) and pd.isna(row["KEYWORD"]):
             category_start = True
             continue
@@ -120,11 +120,11 @@ def identify_category(string):
 
 def get_dealings(lines):
     use = ''
-    date = ""
+    date = ''
     array = []
     for element in lines:
         #print(element)
-        if re.search("^[0-3]?[0-9][/.][0-3]?[0-9][/.][0-9]{4}", element): # start of a deal
+        if re.search("^[0-3]?[0-9][/.][0-3]?[0-9][/.][0-9]{4}", element) and date == '': # start of a deal
             use = ''
             date = element.split()[0]
             #print(date)
