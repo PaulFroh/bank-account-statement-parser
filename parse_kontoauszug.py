@@ -4,6 +4,7 @@ import re
 import json
 import pandas as pd
 from pandas import ExcelWriter
+from pandas import ExcelFile
 import datetime
 import os
 import sys
@@ -37,6 +38,19 @@ def load_categories_from_excel(path):
             categories[last_category].append(row['KEYWORD'])
 
     print(categories)
+
+
+def read_excel_sheet(path, sheet_name):
+    excelFile = ExcelFile(path)
+
+    print(excelFile.sheet_names)
+
+    if sheet_name in excelFile.sheet_names:
+        print("Yes the sheet exists")
+    
+        print(excelFile.parse(sheet_name))
+
+
 
 
 def get_info(path):
@@ -186,6 +200,7 @@ def execute_parse(path_excel, path_to_pdfs):
 
         if os.path.isfile(path_to_pdfs):
             df, month = parse_pdf(path_to_pdfs)
+            read_excel_sheet(path_excel, month)
             export_to_excel(path_excel, df, month)
             
 
