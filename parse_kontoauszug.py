@@ -3,6 +3,7 @@ from tkinter import messagebox
 import re
 import json
 import pandas as pd
+from pandas import ExcelWriter
 import datetime
 import os
 import sys
@@ -14,12 +15,12 @@ bank = ""
 def load_categories_from_excel(path):
     global categories
     categories_raw = pd.read_excel(path, sheet_name='Overview', usecols="A:B", names=["CATEGORY", "KEYWORD"])
-    #print(categories)
+    print(categories)
 
     last_category = ''
     category_start = False
     for index, row in categories_raw.iterrows():
-        #print(row)
+        print(row)
         if not category_start and pd.isna(row["CATEGORY"]) and pd.isna(row["KEYWORD"]):
             category_start = True
             continue
@@ -207,5 +208,5 @@ def execute_parse(path_excel, path_to_pdfs):
 
 
 def export_to_excel(path_excel, dataframe, sheet_name):
-    with pd.ExcelWriter(path_excel, mode='a', if_sheet_exists="overlay") as writer:
+    with ExcelWriter(path_excel, mode='a', if_sheet_exists="overlay") as writer:
         dataframe.to_excel(writer, sheet_name=sheet_name)
