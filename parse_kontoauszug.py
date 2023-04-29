@@ -38,19 +38,6 @@ def load_categories_from_excel(excel_file: ExcelFile):
     print(categories)
 
 
-def read_excel_sheet(path, sheet_name):
-    excelFile = ExcelFile(path)
-
-    print(excelFile.sheet_names)
-
-    if sheet_name in excelFile.sheet_names:
-        print("Yes the sheet exists")
-    
-        print(excelFile.parse(sheet_name))
-
-
-
-
 def get_info(path):
     global bank
 
