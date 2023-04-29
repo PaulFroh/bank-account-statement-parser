@@ -177,6 +177,21 @@ def parse_pdf(path):
     print(df.to_markdown())
     return df, month
 
+def check_for_manual_changes(excel_file: ExcelFile, new_dataframe: DataFrame, sheet_name):
+    if sheet_name in excel_file.sheet_names: # check if a sheet with the name already exists
+        old_dataframe = excel_file.parse(sheet_name, usecols="C:E", names=["Category", "Use", "Keyword"])
+
+        
+        for index_row, new_row in new_dataframe.iterrows():
+
+            if new_row['Category'] == 'Sonstiges' and old_dataframe.values[index_row, 0] != 'Sonstiges':
+                print("replace")
+                new_dataframe.loc[index_row, 'Category'] = old_dataframe.values[index_row, 0]
+                new_dataframe.loc[index_row, 'Keyword'] = old_dataframe.values[index_row, 2]
+                
+    return new_dataframe
+
+
 
 def execute_parse(path_excel, path_to_pdfs):
 
@@ -186,7 +201,7 @@ def execute_parse(path_excel, path_to_pdfs):
 
         if os.path.isfile(path_to_pdfs):
             df, month = parse_pdf(path_to_pdfs)
-            read_excel_sheet(path_excel, month)
+            df = check_for_manual_changes(excel_file, df, month)
             export_to_excel(path_excel, df, month)
             
 
@@ -210,5 +225,5 @@ def execute_parse(path_excel, path_to_pdfs):
 
 
 def export_to_excel(path_excel, dataframe, sheet_name):
-    with ExcelWriter(path_excel, mode='a', if_sheet_exists="overlay") as writer:
+    with ExcelWriter(path_excel, mode='a', if_sheet_exists="replace") as writer:
         dataframe.to_excel(writer, sheet_name=sheet_name)
