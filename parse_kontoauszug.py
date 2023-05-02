@@ -1,15 +1,13 @@
 from pypdf import PdfReader
 from tkinter import messagebox
 import re
-from pandas import ExcelWriter, ExcelFile, DataFrame
 import openpyxl
 import traceback
 import datetime
 import os
 
-import excel_management
+import excel_helper
 
-categories = {}
 path_xlsx = ""
 bank = ""
 
@@ -81,8 +79,7 @@ def get_relevant_lines(path, page_count):
     
     return all_lines
 
-def identify_category(string):
-    global categories
+def identify_category(string, categories):
     upper_string = string.upper()
 
     for category in categories:
@@ -94,9 +91,10 @@ def identify_category(string):
     return "Sonstiges", ""
 
 
-def get_dealings(lines):
+def get_dealings(lines, categories):
     use = ''
     date = ''
+    index = 0
     array = []
     for element in lines:
         #print(element)
@@ -121,64 +119,49 @@ def get_dealings(lines):
             #print(use)
             price = parse_number(element.split()[-1])
             #print(price)
-            category, keyword = identify_category(use)
+            category, keyword = identify_category(use, categories)
 
             if date != '':
-                array.append([date, category, use, keyword, price])
+                array.append([index, date, category, use, keyword, price])
 
             use = ''
             date = ''
             keyword = ''
+            index += 1
             #print('')
 
         if re.search("Kontostand", element) and len(array) > 1:
             kontostand = parse_number(element.split()[-1])
             date = re.search('[0-3]?[0-9][/.][0-3]?[0-9][/.][0-9]{4}', element).group()
 
-            array.append([date, "KONTOSTAND", element, '', kontostand])
+            array.append([index, date, "KONTOSTAND", element, '', kontostand])
             break
         
 
     return array # erster Eintrag ist alter Kontostand
 
 
-def parse_pdf(path):
+def parse_pdf(path, categories):
     print("Path to PDF: " + path)
-    colums = ["Date", "Category", "Use", "Keyword", "Price"]
+    first_row = ["", "Date", "Category", "Use", "Keyword", "Price"]
     
     page_count, month = get_info(path)
     lines = get_relevant_lines(path, page_count)
-    df = DataFrame(get_dealings(lines), columns=colums)
+    dealings = get_dealings(lines, categories)
 
-    print(df.to_markdown())
-    return df, month
-
-def check_for_manual_changes(excel_file: ExcelFile, new_dataframe: DataFrame, sheet_name):
-    if sheet_name in excel_file.sheet_names: # check if a sheet with the name already exists
-        old_dataframe = excel_file.parse(sheet_name, usecols="C:E", names=["Category", "Use", "Keyword"])
-
-        
-        for index_row, new_row in new_dataframe.iterrows():
-
-            if new_row['Category'] == 'Sonstiges' and old_dataframe.values[index_row, 0] != 'Sonstiges':
-                print("replace")
-                new_dataframe.loc[index_row, 'Category'] = old_dataframe.values[index_row, 0]
-                new_dataframe.loc[index_row, 'Keyword'] = old_dataframe.values[index_row, 2]
-                
-    return new_dataframe
-
+    return first_row, dealings, month
 
 
 def execute_parse(path_excel, path_to_pdfs):
 
     try:
         excel_file = openpyxl.load_workbook(path_excel)
-        excel_management.load_categories_from_excel(excel_file)
+        categories = excel_helper.load_categories_from_excel(excel_file)
 
         if os.path.isfile(path_to_pdfs):
-            df, month = parse_pdf(path_to_pdfs)
-            df = check_for_manual_changes(excel_file, df, month)
-            export_to_excel(path_excel, df, month)
+            first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
+            dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+            excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
 
         elif os.path.isdir(path_to_pdfs):
@@ -186,9 +169,9 @@ def execute_parse(path_excel, path_to_pdfs):
                 path_to_pdfs += os.sep
 
             for pdf in os.listdir(path_to_pdfs):
-                df, month = parse_pdf(path_to_pdfs + pdf)
-                df = check_for_manual_changes(excel_file, df, month)
-                export_to_excel(path_excel, df, month)
+                first_row, dealings, month = parse_pdf(pdf, categories)
+                dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+                excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
                 print('')
         
         else:
@@ -199,16 +182,3 @@ def execute_parse(path_excel, path_to_pdfs):
         messagebox.showerror(title='Error', message='An error has occurred!\n' + str(e))
         return False
     return True
-
-
-def export_to_excel(path_excel, dataframe, sheet_name):
-    excel = openpyxl.load_workbook(path_excel)
-
-    if sheet_name in excel.get_sheet_names():
-        sheet = excel.get_sheet_by_name(sheet_name)
-        excel.remove_sheet(sheet)
-        excel.save(path_excel)
-
-
-    with ExcelWriter(path_excel, engine="openpyxl", mode='a', if_sheet_exists='replace') as writer:
-        dataframe.to_excel(writer, sheet_name=sheet_name)
