@@ -229,9 +229,10 @@ def execute_parse(path_excel, path_to_pdfs):
 def export_to_excel(path_excel, dataframe, sheet_name):
     excel = openpyxl.load_workbook(path_excel)
 
-    sheet = excel.get_sheet_by_name(sheet_name)
-    excel.remove_sheet(sheet)
-    excel.save(path_excel)
+    if sheet_name in excel.get_sheet_names():
+        sheet = excel.get_sheet_by_name(sheet_name)
+        excel.remove_sheet(sheet)
+        excel.save(path_excel)
 
 
     with ExcelWriter(path_excel, engine="openpyxl", mode='a', if_sheet_exists='replace') as writer:
