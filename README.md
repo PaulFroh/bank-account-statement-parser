@@ -51,3 +51,11 @@ When you are done with the adjustment of the Excel-file you ***have to safe and 
 - When you are done press the Transfer-Button on the bottom-right corner and the parsing process will start.
 - As soon as the process is finished you will see a message that everything has been transfered successfully.
 - Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
+
+# Build
+nd one that builds the program in a directory. The advantage of the directory is the startup time, but the EXE is nice and small and maybe for mobile applications on a USB stick more appropriate.  
+To run pyinstaller (if you already installed pyinstaller via pip) use:
+```basch
+pyinstaller --clean .\Bank-Account-Statement-Parser-EXE.spec
+```
+if you want the directory, use the -DIR.spec file. 
