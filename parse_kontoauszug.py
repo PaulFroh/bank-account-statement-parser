@@ -2,6 +2,7 @@ from pypdf import PdfReader
 from tkinter import messagebox
 import re
 from pandas import ExcelWriter, ExcelFile, DataFrame
+import openpyxl
 import traceback
 import datetime
 import os
@@ -211,6 +212,7 @@ def execute_parse(path_excel, path_to_pdfs):
 
             for pdf in os.listdir(path_to_pdfs):
                 df, month = parse_pdf(path_to_pdfs + pdf)
+                df = check_for_manual_changes(excel_file, df, month)
                 export_to_excel(path_excel, df, month)
                 print('')
         
@@ -225,5 +227,12 @@ def execute_parse(path_excel, path_to_pdfs):
 
 
 def export_to_excel(path_excel, dataframe, sheet_name):
-    with ExcelWriter(path_excel, mode='a', if_sheet_exists="replace") as writer:
+    excel = openpyxl.load_workbook(path_excel)
+
+    sheet = excel.get_sheet_by_name(sheet_name)
+    excel.remove_sheet(sheet)
+    excel.save(path_excel)
+
+
+    with ExcelWriter(path_excel, engine="openpyxl", mode='a', if_sheet_exists='replace') as writer:
         dataframe.to_excel(writer, sheet_name=sheet_name)
