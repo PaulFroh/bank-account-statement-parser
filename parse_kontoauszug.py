@@ -3,6 +3,7 @@ from tkinter import messagebox
 import re
 from pandas import ExcelWriter, ExcelFile, DataFrame
 import openpyxl
+from openpyxl import Workbook
 import traceback
 import datetime
 import os
@@ -11,30 +12,29 @@ categories = {}
 path_xlsx = ""
 bank = ""
 
-def load_categories_from_excel(excel_file: ExcelFile):
+def load_categories_from_excel(excel_workbook: Workbook):
     global categories
-    categories_raw = excel_file.parse('Overview', usecols="A:B", names=["CATEGORY", "KEYWORD"])
-    categories_bool = categories_raw.isna() # all nan values are marked as True
-
     last_category = ''
-    category_start = False
-    for index, row in categories_raw.iterrows():
-        bool_row = categories_bool.iloc[[index]]
+    overview_sheet = excel_workbook.get_sheet_by_name('Overview') # load worksheet overview
+    
+    category_area = False
+    keywords = []
+    for row in overview_sheet.iter_rows(max_col=2, values_only=True):
+        if category_area == False and row[0] == None and row[1] == None: # a row with double None is the beginning of the categories
+            category_area = True
+
+        if category_area and row[0] != None:
+            if len(keywords) != 0: # categories without any keywords are unnecessary to check
+                categories[last_category] = keywords
+
+            last_category = row[0]
+            keywords = []
         
-        if not category_start and bool_row["CATEGORY"].bool() and bool_row["KEYWORD"].bool():
-            category_start = True
-            continue
-        
-        if category_start and bool_row["CATEGORY"].bool() and bool_row["KEYWORD"].bool():
+        if category_area and row[1] != None:
+            keywords.append(row[1])
+
+        if category_area and row[0] == None and row[1] == None: # a row with double None is also the end of the categories
             break
-
-
-        if category_start and not bool_row["CATEGORY"].bool():
-            last_category = row['CATEGORY']
-            categories[row['CATEGORY']] = []
-        
-        if category_start and not bool_row["KEYWORD"].bool():
-            categories[last_category].append(row['KEYWORD'])
 
     print(categories)
 
@@ -197,7 +197,7 @@ def check_for_manual_changes(excel_file: ExcelFile, new_dataframe: DataFrame, sh
 def execute_parse(path_excel, path_to_pdfs):
 
     try:
-        excel_file = ExcelFile(path_excel)
+        excel_file = openpyxl.load_workbook(path_excel)
         load_categories_from_excel(excel_file)
 
         if os.path.isfile(path_to_pdfs):
