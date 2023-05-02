@@ -1,39 +1,39 @@
 from pypdf import PdfReader
 from tkinter import messagebox
 import re
-import json
-import pandas as pd
-from pandas import ExcelWriter
+from pandas import ExcelWriter, ExcelFile, DataFrame
+import openpyxl
+import traceback
 import datetime
 import os
-import sys
 
 categories = {}
 path_xlsx = ""
 bank = ""
 
-def load_categories_from_excel(path):
+def load_categories_from_excel(excel_file: ExcelFile):
     global categories
-    categories_raw = pd.read_excel(path, sheet_name='Overview', usecols="A:B", names=["CATEGORY", "KEYWORD"])
-    print(categories)
+    categories_raw = excel_file.parse('Overview', usecols="A:B", names=["CATEGORY", "KEYWORD"])
+    categories_bool = categories_raw.isna() # all nan values are marked as True
 
     last_category = ''
     category_start = False
     for index, row in categories_raw.iterrows():
-        print(row)
-        if not category_start and pd.isna(row["CATEGORY"]) and pd.isna(row["KEYWORD"]):
+        bool_row = categories_bool.iloc[[index]]
+        
+        if not category_start and bool_row["CATEGORY"].bool() and bool_row["KEYWORD"].bool():
             category_start = True
             continue
         
-        if category_start and pd.isna(row["CATEGORY"]) and pd.isna(row["KEYWORD"]):
+        if category_start and bool_row["CATEGORY"].bool() and bool_row["KEYWORD"].bool():
             break
 
 
-        if category_start and not pd.isna(row['CATEGORY']):
+        if category_start and not bool_row["CATEGORY"].bool():
             last_category = row['CATEGORY']
             categories[row['CATEGORY']] = []
         
-        if category_start and not pd.isna(row['KEYWORD']):
+        if category_start and not bool_row["KEYWORD"].bool():
             categories[last_category].append(row['KEYWORD'])
 
     print(categories)
@@ -173,19 +173,36 @@ def parse_pdf(path):
     
     page_count, month = get_info(path)
     lines = get_relevant_lines(path, page_count)
-    df = pd.DataFrame(get_dealings(lines), columns=colums)
+    df = DataFrame(get_dealings(lines), columns=colums)
 
     print(df.to_markdown())
     return df, month
+
+def check_for_manual_changes(excel_file: ExcelFile, new_dataframe: DataFrame, sheet_name):
+    if sheet_name in excel_file.sheet_names: # check if a sheet with the name already exists
+        old_dataframe = excel_file.parse(sheet_name, usecols="C:E", names=["Category", "Use", "Keyword"])
+
+        
+        for index_row, new_row in new_dataframe.iterrows():
+
+            if new_row['Category'] == 'Sonstiges' and old_dataframe.values[index_row, 0] != 'Sonstiges':
+                print("replace")
+                new_dataframe.loc[index_row, 'Category'] = old_dataframe.values[index_row, 0]
+                new_dataframe.loc[index_row, 'Keyword'] = old_dataframe.values[index_row, 2]
+                
+    return new_dataframe
+
 
 
 def execute_parse(path_excel, path_to_pdfs):
 
     try:
-        load_categories_from_excel(path_excel)
+        excel_file = ExcelFile(path_excel)
+        load_categories_from_excel(excel_file)
 
         if os.path.isfile(path_to_pdfs):
             df, month = parse_pdf(path_to_pdfs)
+            df = check_for_manual_changes(excel_file, df, month)
             export_to_excel(path_excel, df, month)
             
 
@@ -195,6 +212,7 @@ def execute_parse(path_excel, path_to_pdfs):
 
             for pdf in os.listdir(path_to_pdfs):
                 df, month = parse_pdf(path_to_pdfs + pdf)
+                df = check_for_manual_changes(excel_file, df, month)
                 export_to_excel(path_excel, df, month)
                 print('')
         
@@ -202,11 +220,20 @@ def execute_parse(path_excel, path_to_pdfs):
             messagebox.showerror(title='Error', message='This PDF file does not exist!')
             return False
     except Exception as e:
+        print(traceback.format_exc())
         messagebox.showerror(title='Error', message='An error has occurred!\n' + str(e))
         return False
     return True
 
 
 def export_to_excel(path_excel, dataframe, sheet_name):
-    with ExcelWriter(path_excel, mode='a', if_sheet_exists="overlay") as writer:
+    excel = openpyxl.load_workbook(path_excel)
+
+    if sheet_name in excel.get_sheet_names():
+        sheet = excel.get_sheet_by_name(sheet_name)
+        excel.remove_sheet(sheet)
+        excel.save(path_excel)
+
+
+    with ExcelWriter(path_excel, engine="openpyxl", mode='a', if_sheet_exists='replace') as writer:
         dataframe.to_excel(writer, sheet_name=sheet_name)
