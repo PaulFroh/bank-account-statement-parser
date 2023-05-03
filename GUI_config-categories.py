@@ -15,6 +15,9 @@ class GUI_Categories:   # definition of the class
                 self.label = tk.Label(self.root, text="We found following new categories:", font=('Arial',11))   # adds a Label so people know what the programm expects
                 self.label.grid(column=1, row=2, padx="10", pady="10")
 
+                # Label area where the new categories are shown with checkboxes
+                
+
                 # button for NOT adding the new categories to the excel /transfer the data
                 self.button_dont = tk.Button(self.root, text="No", font=('Arial',11), bg="lightgrey", command=self.quit)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
                 self.button_dont.grid(column=0, row=6, padx="10",sticky=tk.E, pady="50")
@@ -27,6 +30,11 @@ class GUI_Categories:   # definition of the class
                         
         
                 self.root.mainloop()
+
+        def dict():
+                categories.config(text=dictionary.categories(word.get()))
+                keywords.config(text=dictionary.keywords(word.get()))
+               
 
         def quit(self):
                 self.root.destroy()
