@@ -13,6 +13,10 @@ class GUI_Categories:   # definition of the class
                 
                 self.root.mainloop()
 
+        # this class needs to be callable with a list of categories
+        # Let the user decide which categories he wants
+        # return the modified list
+
 
 GUI_Categories()
 

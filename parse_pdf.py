@@ -153,6 +153,7 @@ def parse_pdf(path, categories):
 
 
 def execute_parse(path_excel, path_to_pdfs):
+    # get signal if the search for new categories is active
 
     try:
         excel_file = openpyxl.load_workbook(path_excel)
@@ -161,6 +162,9 @@ def execute_parse(path_excel, path_to_pdfs):
         if os.path.isfile(path_to_pdfs):
             first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
             dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+            # if signal is true load categories from config an check for new categories
+            # if there are new categories call the config gui to let the user decide which one he wants
+            # update the categories dict
             excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
 
@@ -177,6 +181,8 @@ def execute_parse(path_excel, path_to_pdfs):
         else:
             messagebox.showerror(title='Error', message='This PDF file does not exist!')
             return False
+        
+        # update the overview table in the excel with the new categories
     except Exception as e:
         print(traceback.format_exc())
         messagebox.showerror(title='Error', message='An error has occurred!\n' + str(e))
