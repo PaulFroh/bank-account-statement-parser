@@ -32,3 +32,11 @@ def write_config(path_excel):
 
     with open(config_path, 'w+') as outfile:
         outfile.write(json_object)
+
+def load_config_categories(config_path):
+    with open(config_path) as f:
+        data = json.load(f)
+    categories = data['categories']
+    return categories
+
+    

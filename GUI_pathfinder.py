@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import Entry, filedialog, messagebox
-import parse_kontoauszug
-import config_managment
+import parse_pdf
+import config_helper
 
 class GUI:   # definition of the class
 
@@ -22,7 +22,7 @@ class GUI:   # definition of the class
         # entry for the Excel file
         self.entry = tk.Entry (self.root, text="Hallo", width=50, font=('Arial',11))              # ads the entry field 
         
-        excel_path = config_managment.get_excel_path()
+        excel_path = config_helper.get_excel_path()
         if excel_path != None:
             self.entry.delete(0, "end")
             self.entry.insert(0, excel_path)  
@@ -97,12 +97,12 @@ class GUI:   # definition of the class
             print(f"Excel-Filepath: {excel_file_path}")
             print(f"PDF-Filepath: {pdf_file_path}")
             
-            if parse_kontoauszug.execute_parse(excel_file_path, pdf_file_path):
+            if parse_pdf.execute_parse(excel_file_path, pdf_file_path):
                 messagebox.showinfo("Info", "The file was successfully parsed")
 
             print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:
-                config_managment.write_config(excel_file_path)
+                config_helper.write_config(excel_file_path)
 
 
 
