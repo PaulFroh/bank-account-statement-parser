@@ -19,11 +19,11 @@ class GUI_Categories:   # definition of the class
                 
 
                 # button for NOT adding the new categories to the excel /transfer the data
-                self.button_dont = tk.Button(self.root, text="No", font=('Arial',11), bg="lightgrey", command=self.quit)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
+                self.button_dont = tk.Button(self.root, text="No", relief="groove", font=('Arial',11), bg="lightgrey", command=self.quit)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
                 self.button_dont.grid(column=0, row=6, padx="10",sticky=tk.E, pady="50")
 
                 # button for adding the new categories to the excel /transfer the data
-                self.button_do = tk.Button(self.root, text="Yes", font=('Arial',11), bg="lightgrey", command=self.transfer_categories)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
+                self.button_do = tk.Button(self.root, text="Yes", relief="groove", font=('Arial',11), bg="lightgrey", command=self.transfer_categories)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
                 self.button_do.grid(column=2, row=6, padx="10",sticky=tk.E, pady="50")
 
                

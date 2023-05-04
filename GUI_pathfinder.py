@@ -30,7 +30,7 @@ class GUI:   # definition of the class
         
         self.entry.grid(column=1, row=2, padx="10", pady="10")
         # button for adding an Excel-file path
-        self.button = tk.Button(self.root, text="Choose path", font=('Arial', 10), bg="lightgrey", command=lambda: self.excel_directory(self.entry))  # if you klick on the button the funktion show_directory will be passed and called whenever the button is klicked
+        self.button = tk.Button(self.root, text="Choose path", relief="groove" , font=('Arial', 10), bg="lightgrey", command=lambda: self.excel_directory(self.entry))  # if you klick on the button the funktion show_directory will be passed and called whenever the button is klicked
         self.button.grid(column=1, row=3, padx="10", pady="10", sticky=tk.E)
 
         # adding a check button for default excel path
@@ -46,7 +46,7 @@ class GUI:   # definition of the class
         self.entry_1 = tk.Entry (self.root, width=50, font=('Arial',11))              # ads the entry field 
         self.entry_1.grid(column=1, row=4, padx="10", pady="10")
         # button for adding a pdf-file path
-        self.button_1 = tk.Button(self.root, text="Choose path", font=('Arial', 10), bg="lightgrey", command=lambda: self.pdf_directory(self.entry_1))  # if you klick on the button the funktion show_directory_1 will be passed and called whenever the button is klicked
+        self.button_1 = tk.Button(self.root, text="Choose path", relief="groove", font=('Arial', 10), bg="lightgrey", command=lambda: self.pdf_directory(self.entry_1))  # if you klick on the button the funktion show_directory_1 will be passed and called whenever the button is klicked
         self.button_1.grid(column=1, row=5, padx="10", pady="10", sticky=tk.E)
 
         # adding a check button for choosing a whole folder instead of only one file
@@ -56,7 +56,7 @@ class GUI:   # definition of the class
         
         
         #button for transfer the data in the end
-        self.button_run = tk.Button(self.root, text="Transfer", font=('Arial',11), bg="lightgrey", command=self.transfer_data)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
+        self.button_run = tk.Button(self.root, text="Transfer", relief="groove", font=('Arial',11), bg="lightgrey", command=self.transfer_data)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
         self.button_run.grid(column=2, row=6, padx="10",sticky=tk.E, pady="50")
     
 
