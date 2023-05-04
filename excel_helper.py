@@ -67,8 +67,8 @@ def export_to_excel(excel_file: Workbook, first_row, dealings, sheet_name, path_
 
     excel_file.save(path_excel)
 
-def export_new_categories(categories):
-        pass
+def export_new_categories(categories, path_excel):
+        pass 
 
     
 

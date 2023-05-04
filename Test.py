@@ -1,5 +1,6 @@
 import unittest
 
+import config_helper
 
 class ExampleTest(unittest.TestCase):
 

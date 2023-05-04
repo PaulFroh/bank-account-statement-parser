@@ -7,6 +7,7 @@ import datetime
 import os
 
 import excel_helper
+import config_helper
 
 path_xlsx = ""
 bank = ""
@@ -79,19 +80,23 @@ def get_relevant_lines(path, page_count):
     
     return all_lines
 
-def identify_category(string, categories):
-    upper_string = string.upper()
+def identify_category(dealings, categories):
+    for row in dealings:
+        use = row[excel_helper.USE_ROW]
+        upper_use = use.upper()
 
-    for category in categories:
-        for keyword in categories[category]:
-            keyword_str = str(keyword).upper()
-            if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
-                return category, keyword
+        if row[excel_helper.CATEGORY_ROW] == 'Sonstiges':
+            for category in categories:
+                for keyword in categories[category]:
+                    keyword_str = str(keyword).upper()
+                    if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_use):
+                        row[excel_helper.CATEGORY_ROW] = category
+                        row[excel_helper.KEYWORD_ROW] = keyword
 
-    return "Sonstiges", ""
+    return dealings
 
 
-def get_dealings(lines, categories):
+def get_dealings(lines):
     use = ''
     date = ''
     index = 0
@@ -119,10 +124,9 @@ def get_dealings(lines, categories):
             #print(use)
             price = parse_number(element.split()[-1])
             #print(price)
-            category, keyword = identify_category(use, categories)
 
             if date != '':
-                array.append([index, date, category, use, keyword, price])
+                array.append([index, date, 'Sonstiges', use, keyword, price])
 
             use = ''
             date = ''
@@ -152,7 +156,7 @@ def parse_pdf(path, categories):
     return first_row, dealings, month
 
 
-def execute_parse(path_excel, path_to_pdfs):
+def execute_parse(path_excel, path_to_pdfs, search_categories = False):
     # get signal if the search for new categories is active
 
     try:
@@ -162,9 +166,15 @@ def execute_parse(path_excel, path_to_pdfs):
         if os.path.isfile(path_to_pdfs):
             first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
             dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+            dealings = identify_category(dealings, categories)
             # if signal is true load categories from config an check for new categories
             # if there are new categories call the config gui to let the user decide which one he wants
             # update the categories dict
+            if search_categories:
+                config_helper.search_for_new_categories(dealings, path_excel)
+                categories = excel_helper.load_categories_from_excel(excel_file)
+                dealings = identify_category(dealings, categories)
+
             excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
 

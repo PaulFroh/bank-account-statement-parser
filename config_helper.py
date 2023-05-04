@@ -44,8 +44,9 @@ def load_config_categories(config_path):
     return categories
 
 
-def search_for_new_categories(dealings):
+def search_for_new_categories(dealings, path_excel):
     categories = load_config_categories(config_path)
+    print(categories)
     found_categories = {}
     
     for row in dealings:
@@ -59,7 +60,7 @@ def search_for_new_categories(dealings):
                     if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
                         found_categories[category] = keyword
 
-    GUI_config_categories(found_categories)
+    test = GUI_config_categories(found_categories, path_excel)
 
 
     

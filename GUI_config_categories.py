@@ -2,11 +2,12 @@ import tkinter as tk
 import excel_helper
 
 class GUI_config_categories:   # definition of the class
-        def __init__(self, found_categories):
+        def __init__(self, found_categories, path_excel):
                 self.root = tk.Tk()
                 self.root.resizable(0,0)    # Window is not ajustabl
                 self.root.geometry("350x350")
                 self.root.title("Categories-Configurator")
+                self.path_excel = path_excel
 
                 # Headline
                 label = tk.Label(self.root, text="Categories Custom-Settings", font=('Arial', 18))   # adds a Label above the entry to let people know what the programm expects
@@ -43,13 +44,10 @@ class GUI_config_categories:   # definition of the class
 
         def transfer_categories(self):
                 categories = {}
-                excel_helper.export_new_categories(categories)
+                excel_helper.export_new_categories(categories, self.path_excel)
 
 
         # this class needs to be callable with a list of categories
         # Let the user decide which categories he wants
         # return the modified list
-
-
-GUI_config_categories()
 
