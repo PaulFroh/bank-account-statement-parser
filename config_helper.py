@@ -1,5 +1,9 @@
 import os
 import json
+import re
+
+import excel_helper
+from GUI_config_categories import *
 
 config_path = '.' + os.sep + 'parser_config' + os.sep + 'config.json'
 
@@ -38,5 +42,26 @@ def load_config_categories(config_path):
         data = json.load(f)
     categories = data['categories']
     return categories
+
+
+def search_for_new_categories(dealings):
+    categories = load_config_categories(config_path)
+    found_categories = {}
+    
+    for row in dealings:
+        use = row[excel_helper.USE_ROW]
+        upper_string = use.upper()
+
+        if row[excel_helper.CATEGORY_ROW] == 'Sonstiges': # check only rows that do not have any category
+            for category in categories:
+                for keyword in categories[category]:
+                    keyword_str = str(keyword).upper()
+                    if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
+                        found_categories[category] = keyword
+
+    gui = GUI_config_categories()
+    commit_categories = gui.transfer_categories(found_categories)
+    return commit_categories
+
 
     

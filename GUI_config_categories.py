@@ -1,6 +1,6 @@
 import tkinter as tk
 
-class GUI_Categories:   # definition of the class
+class GUI_config_categories:   # definition of the class
         def __init__(self):
                 self.root = tk.Tk()
                 self.root.resizable(0,0)    # Window is not ajustabl
@@ -32,8 +32,6 @@ class GUI_Categories:   # definition of the class
                 self.button_do = tk.Button(self.root, text="Yes", relief="groove", font=('Arial',11), bg="lightgrey", command=self.transfer_categories)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
                 self.button_do.grid(column=1, row=5, padx="10",sticky=tk.E, pady="50")
 
-               
-                        
         
                 self.root.mainloop()
 
@@ -42,7 +40,7 @@ class GUI_Categories:   # definition of the class
                 self.root.destroy()
 
 
-        def transfer_categories(self):
+        def transfer_categories(self, found_categories):
                 pass
 
 
@@ -51,5 +49,5 @@ class GUI_Categories:   # definition of the class
         # return the modified list
 
 
-GUI_Categories()
+GUI_config_categories()
 

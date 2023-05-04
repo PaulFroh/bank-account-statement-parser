@@ -79,24 +79,19 @@ def get_relevant_lines(path, page_count):
     
     return all_lines
 
-def identify_category(dealings, categories):
+def identify_category(string, categories):
+    upper_string = string.upper()
 
-    for row in dealings:
-        use = row[excel_helper.USE_ROW]
-        upper_string = use.upper()
+    for category in categories:
+        for keyword in categories[category]:
+            keyword_str = str(keyword).upper()
+            if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
+                return category, keyword
 
-        if row[excel_helper.CATEGORY_ROW] == 'Sonstiges':
-            for category in categories:
-                for keyword in categories[category]:
-                    keyword_str = str(keyword).upper()
-                    if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
-                        row[excel_helper.CATEGORY_ROW] = category
-                        row[excel_helper.KEYWORD_ROW] = keyword
-
-    return dealings
+    return "Sonstiges", ""
 
 
-def get_dealings(lines):
+def get_dealings(lines, categories):
     use = ''
     date = ''
     index = 0
@@ -124,12 +119,14 @@ def get_dealings(lines):
             #print(use)
             price = parse_number(element.split()[-1])
             #print(price)
+            category, keyword = identify_category(use, categories)
 
             if date != '':
-                array.append([index, date, 'Sonstiges', use, '', price])
+                array.append([index, date, category, use, keyword, price])
 
             use = ''
             date = ''
+            keyword = ''
             index += 1
             #print('')
 
@@ -139,8 +136,9 @@ def get_dealings(lines):
 
             array.append([index, date, "KONTOSTAND", element, '', kontostand])
             break
-    
-    return array
+        
+
+    return array # erster Eintrag ist alter Kontostand
 
 
 def parse_pdf(path, categories):
@@ -149,12 +147,12 @@ def parse_pdf(path, categories):
     
     page_count, month = get_info(path)
     lines = get_relevant_lines(path, page_count)
-    dealings = get_dealings(lines)
+    dealings = get_dealings(lines, categories)
 
     return first_row, dealings, month
 
 
-def execute_parse(path_excel, path_to_pdfs, search_for_new = False):
+def execute_parse(path_excel, path_to_pdfs):
     # get signal if the search for new categories is active
 
     try:
@@ -164,13 +162,9 @@ def execute_parse(path_excel, path_to_pdfs, search_for_new = False):
         if os.path.isfile(path_to_pdfs):
             first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
             dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
-            dealings = identify_category(dealings, categories)
-
-            if search_for_new: 
-                # if signal is true load categories from config an check for new categories
-                # if there are new categories call the config gui to let the user decide which one he wants
-                # update the categories dict
-                pass
+            # if signal is true load categories from config an check for new categories
+            # if there are new categories call the config gui to let the user decide which one he wants
+            # update the categories dict
             excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
 
@@ -181,7 +175,6 @@ def execute_parse(path_excel, path_to_pdfs, search_for_new = False):
             for pdf in os.listdir(path_to_pdfs):
                 first_row, dealings, month = parse_pdf(pdf, categories)
                 dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
-                dealings = identify_category(dealings, categories)
                 excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
                 print('')
         
