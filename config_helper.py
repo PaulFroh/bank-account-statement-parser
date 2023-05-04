@@ -59,9 +59,7 @@ def search_for_new_categories(dealings):
                     if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
                         found_categories[category] = keyword
 
-    gui = GUI_config_categories()
-    commit_categories = gui.transfer_categories(found_categories)
-    return commit_categories
+    GUI_config_categories(found_categories)
 
 
     

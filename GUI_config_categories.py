@@ -1,7 +1,8 @@
 import tkinter as tk
+import excel_helper
 
 class GUI_config_categories:   # definition of the class
-        def __init__(self):
+        def __init__(self, found_categories):
                 self.root = tk.Tk()
                 self.root.resizable(0,0)    # Window is not ajustabl
                 self.root.geometry("350x350")
@@ -40,8 +41,9 @@ class GUI_config_categories:   # definition of the class
                 self.root.destroy()
 
 
-        def transfer_categories(self, found_categories):
-                return found_categories # change this, the method only returns the categories that the user selects
+        def transfer_categories(self):
+                categories = {}
+                excel_helper.export_new_categories(categories)
 
 
         # this class needs to be callable with a list of categories
