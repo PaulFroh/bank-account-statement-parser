@@ -4,7 +4,7 @@ class GUI_Categories:   # definition of the class
         def __init__(self):
                 self.root = tk.Tk()
                 self.root.resizable(0,0)    # Window is not ajustabl
-                self.root.geometry("680x450")
+                self.root.geometry("350x350")
                 self.root.title("Categories-Configurator")
 
                 # Headline
@@ -15,16 +15,22 @@ class GUI_Categories:   # definition of the class
                 self.label = tk.Label(self.root, text="We found following new categories:", font=('Arial',11))   # adds a Label so people know what the programm expects
                 self.label.grid(column=1, row=2, padx="10", pady="10")
 
-                # Label area where the new categories are shown with checkboxes
-                
+                # IF-Bdeingung --> Label area where the new categories are shown with checkboxes
+                self.check_state_1 = tk.IntVar()
+                self.check_1 = tk.Checkbutton(self.root, text="[Has to be named automatically]", font=('Arial',10), variable=self.check_state_1)
+                self.check_1.grid(column=1, row=3, padx="5", pady="5", sticky=tk.W)
+
+                # Lable which asks you if you want to add the categories and keywords to the excel file
+                self.label = tk.Label(self.root, text="Do you want to add the new categories?", font=('Arial',11))   # adds a Label so people know what the programm expects
+                self.label.grid(column=1, row=4, padx="10", pady="10")
 
                 # button for NOT adding the new categories to the excel /transfer the data
                 self.button_dont = tk.Button(self.root, text="No", relief="groove", font=('Arial',11), bg="lightgrey", command=self.quit)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
-                self.button_dont.grid(column=0, row=6, padx="10",sticky=tk.E, pady="50")
+                self.button_dont.grid(column=1, row=5, padx="10",sticky=tk.W, pady="50")
 
                 # button for adding the new categories to the excel /transfer the data
                 self.button_do = tk.Button(self.root, text="Yes", relief="groove", font=('Arial',11), bg="lightgrey", command=self.transfer_categories)  # if you klick on the button the funktion transfer data will be passed and called whenever the button is klicked
-                self.button_do.grid(column=2, row=6, padx="10",sticky=tk.E, pady="50")
+                self.button_do.grid(column=1, row=5, padx="10",sticky=tk.E, pady="50")
 
                
                         
