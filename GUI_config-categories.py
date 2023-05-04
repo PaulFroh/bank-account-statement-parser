@@ -31,10 +31,6 @@ class GUI_Categories:   # definition of the class
         
                 self.root.mainloop()
 
-        def dict():
-                categories.config(text=dictionary.categories(word.get())) # ? was genau willst du hier machen
-                keywords.config(text=dictionary.keywords(word.get()))
-               
 
         def quit(self):
                 self.root.destroy()
