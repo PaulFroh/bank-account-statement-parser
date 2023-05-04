@@ -2,7 +2,7 @@ import tkinter as tk
 import excel_helper
 
 class GUI_config_categories:   # definition of the class
-        def __init__(self, found_categories):
+        def __init__(self, found_categories, path_excel):
                 self.found_categories = found_categories
                 self.root = tk.Tk()
                 self.root.resizable(0,0)    # Window is not ajustabl
@@ -17,32 +17,19 @@ class GUI_config_categories:   # definition of the class
                 self.label_new = tk.Label(self.root, text="We found following new categories:", font=('Arial',11))   # adds a Label so people know what the programm expects
                 self.label_new.grid(column=1, row=2, padx="10", pady="10")
 
-               # FOR-LOOP --> Label area where the new categories are shown with checkboxes
-                
-                num_keys = len(found_categories.keys())
-                num_values = len([val for sublist in found_categories.values() for val in sublist])
-                num_all = num_keys + num_values
-                print("Anzahl der Schlüssel: ", num_keys)
-                print("Anzahl der Werte: ", num_values)
-                print("Anzahl Gesamt: ", num_all)
-
-                
-                i = 0
-                while i < num_keys:    # Outer While Loop which is active as many loops as keys are there in the dictonary
-                    extracted_keys = list(found_categories.keys())[i]
-                    extracted_sublist = list(found_categories.values())[i] # Creates a list of the "i-th" sublist
-                    count_keys = len(extracted_keys)                       # Counts the amount of elements in the ectracted sublist
-                    count_sublist = len(extracted_sublist)
-
-                    for m in range(count_keys):   
-                        self.label = tk.Label(self.root, text=extracted_keys[m])                     # creates a label with the first key of the "i-th sublist"
-                        self.label.grid(column=1, row=[2+m], padx="5", pady="1", sticky=tk.W)                        
-                        for n in range(count_sublist):                                      # creates a label with all elements of the specific sublist
-                                self.label = tk.Label(self.root, text=extracted_sublist[n])
-                        self.label.grid(column=1, row=[m+n+1], padx="5", pady="1", sticky=tk.W)
+                # FOR-LOOP --> Label area where the new categories are shown with checkboxes
+                index_category = 0
+                for category in found_categories:
                         
+                        self.label = tk.Label(self.root, text=category)                     # creates a label with the first key of the "i-th sublist"
+                        self.label.grid(column=1, row=[2+index_category], padx="5", pady="1", sticky=tk.W)
                         
-                        
+                        index_keyword = 0
+                        for keyword in found_categories[category]:                                      # creates a label with all elements of the specific sublist
+                                self.label = tk.Label(self.root, text=keyword)
+                                self.label.grid(column=1, row=[index_category+index_keyword+2], padx="5", pady="1", sticky=tk.W)
+                                index_keyword += 1
+                        index_category += 1   
 
                 # Lable which asks you if you want to add the categories and keywords to the excel file
                 self.label_transfer = tk.Label(self.root, text="Do you want to add the new categories?", font=('Arial',11))   # adds a Label so people know what the programm expects
@@ -78,7 +65,4 @@ class GUI_config_categories:   # definition of the class
         # this class needs to be callable with a list of categories
         # Let the user decide which categories he wants
         # return the modified list
-
-
-GUI_config_categories()
 
