@@ -60,7 +60,7 @@ def search_for_new_categories(dealings, path_excel):
                     if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
                         found_categories[category] = keyword
 
-    test = GUI_config_categories(found_categories, path_excel)
+    GUI_config_categories(found_categories, path_excel)
 
 
     
