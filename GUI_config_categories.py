@@ -41,7 +41,7 @@ class GUI_config_categories:   # definition of the class
 
 
         def transfer_categories(self, found_categories):
-                pass
+                return found_categories # change this, the method only returns the categories that the user selects
 
 
         # this class needs to be callable with a list of categories
