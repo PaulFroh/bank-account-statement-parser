@@ -80,6 +80,3 @@ class GUI_config_categories:   # definition of the class
         # Let the user decide which categories he wants
         # return the modified list
 
-
-GUI_config_categories()
-
