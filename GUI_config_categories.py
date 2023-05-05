@@ -4,6 +4,7 @@ import excel_helper
 class GUI_config_categories:   # definition of the class
         def __init__(self, found_categories, path_excel):
                 self.found_categories = found_categories
+                self.path_excel = path_excel
 
                 self.root = tk.Tk()
                 #self.root.resizable(0,0)    # Window is not ajustabl
@@ -56,7 +57,7 @@ class GUI_config_categories:   # definition of the class
 
                 # FOR-LOOP --> Label area where the new categories are shown with checkboxes
                 
-                keyword_checkboxes = {}
+                self.keyword_checkboxes = {}
                 index_category = 0
                 for category in found_categories:
                         
@@ -64,7 +65,7 @@ class GUI_config_categories:   # definition of the class
                         self.check = tk.Checkbutton(self.frame_checkboxes, text=category, font=('Arial',10, 'bold'), variable=check_state)
                         self.check.grid(column=[index_category], row=[2], padx="5", pady="5", sticky=tk.W)
                         
-                        keyword_checkboxes[category] = []
+                        self.keyword_checkboxes[category] = []
                         
                 
                         
@@ -75,7 +76,7 @@ class GUI_config_categories:   # definition of the class
                                 self.check = tk.Checkbutton(self.frame_checkboxes, text=keyword, font=('Arial',10), variable=check_state)
                                 self.check.grid(column=[index_category], row=[index_keyword+3], padx="5", pady="5", sticky=tk.W)
                                 
-                                keyword_checkboxes[category].append((keyword, check_state))
+                                self.keyword_checkboxes[category].append((keyword, check_state))
 
                                 index_keyword += 1
                         index_category += 1
@@ -113,7 +114,15 @@ class GUI_config_categories:   # definition of the class
 
         def transfer_categories(self):
                 categories = {}
-                excel_helper.export_new_categories(categories)
+                for category in self.keyword_checkboxes:
+                        for checkbox_status in self.keyword_checkboxes[category]:
+                                if checkbox_status[1].get():
+                                        if category not in categories.keys():
+                                                categories[category] = []
+                                        categories[category].append(checkbox_status[0])
+                                        
+                print(categories)
+                #excel_helper.export_new_categories(categories, self.path_excel)
 
 
         # this class needs to be callable with a list of categories
