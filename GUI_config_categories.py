@@ -24,13 +24,18 @@ class GUI_config_categories:   # definition of the class
                 index_category = 0
                 for category in found_categories:
                         
-                        self.label = tk.Label(self.root, text=category, font=('Arial',10, 'bold'))                     # creates a label with the first key of the "i-th sublist"
-                        self.label.grid(column=[index_category], row=[2], padx="10", pady="1", sticky=tk.W)
+                        self.check_state = tk.IntVar()
+                        self.check = tk.Checkbutton(self.root, text=category, font=('Arial',10, 'bold'), variable=self.check_state)
+                        self.check.grid(column=[index_category], row=[2], padx="5", pady="5", sticky=tk.W)
+                
                         
                         index_keyword = 0
                         for keyword in found_categories[category]:                                      # creates a label with all elements of the specific sublist
-                                self.label = tk.Label(self.root, text=keyword, font=('Arial',10))
-                                self.label.grid(column=[index_category], row=[index_keyword+3], padx="10", pady="1", sticky=tk.W)
+                                
+                                self.check_state = tk.IntVar()
+                                self.check = tk.Checkbutton(self.root, text=keyword, font=('Arial',10), variable=self.check_state)
+                                self.check.grid(column=[index_category], row=[index_keyword+3], padx="5", pady="5", sticky=tk.W)
+
                                 index_keyword += 1
                         index_category += 1
 
