@@ -55,20 +55,27 @@ class GUI_config_categories:   # definition of the class
                 self.label_new.grid(column=5, row=1, padx="10", pady="10")
 
                 # FOR-LOOP --> Label area where the new categories are shown with checkboxes
+                
+                keyword_checkboxes = {}
                 index_category = 0
                 for category in found_categories:
                         
-                        self.check_state = tk.IntVar()
-                        self.check = tk.Checkbutton(self.frame_checkboxes, text=category, font=('Arial',10, 'bold'), variable=self.check_state)
+                        check_state = tk.IntVar()
+                        self.check = tk.Checkbutton(self.frame_checkboxes, text=category, font=('Arial',10, 'bold'), variable=check_state)
                         self.check.grid(column=[index_category], row=[2], padx="5", pady="5", sticky=tk.W)
+                        
+                        keyword_checkboxes[category] = []
+                        
                 
                         
                         index_keyword = 0
                         for keyword in found_categories[category]:                                      # creates a label with all elements of the specific sublist
                                 
-                                self.check_state = tk.IntVar()
-                                self.check = tk.Checkbutton(self.frame_checkboxes, text=keyword, font=('Arial',10), variable=self.check_state)
+                                check_state = tk.IntVar()
+                                self.check = tk.Checkbutton(self.frame_checkboxes, text=keyword, font=('Arial',10), variable=check_state)
                                 self.check.grid(column=[index_category], row=[index_keyword+3], padx="5", pady="5", sticky=tk.W)
+                                
+                                keyword_checkboxes[category].append((keyword, check_state))
 
                                 index_keyword += 1
                         index_category += 1
