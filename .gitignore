@@ -131,7 +131,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-parser_config/
+parser_config/user_config.json
+parser_config/config.json
+
 config/
 
 ~$*
