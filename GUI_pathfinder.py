@@ -102,7 +102,7 @@ class GUI:   # definition of the class
 
             print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:
-                config_helper.write_config(excel_file_path)
+                config_helper.safe_default_path(excel_file_path)
 
 
 

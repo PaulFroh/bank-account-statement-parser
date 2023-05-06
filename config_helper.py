@@ -5,10 +5,12 @@ import re
 import excel_helper
 from GUI_config_categories import *
 
-config_path = '.' + os.sep + 'parser_config' + os.sep + 'config.json'
 
-def load_config():
-    global config_path
+def get_config_folder():
+    return '.' + os.sep + 'parser_config' + os.sep
+
+def load_config(config_name):
+    config_path = get_config_folder() + config_name + '.json'
     if os.path.exists(config_path):
         f = open(config_path)
         config_json = json.load(f)
@@ -18,26 +20,44 @@ def load_config():
     return None
 
 def get_excel_path():
-    config = load_config()
+    config = load_config('user_config')
 
     if config == None:
         return None
 
     return config['default_path']
 
-def write_config(path_excel):
-    config = {}
-    config['default_path'] = path_excel
-
+def write_config(config_name, config):
     json_object = json.dumps(config, indent=4)
 
     if not os.path.exists('.' + os.sep + 'parser_config'):
         os.mkdir("parser_config")
 
-    with open(config_path, 'w+') as outfile:
+    with open(get_config_folder() + config_name + '.json', 'w+') as outfile:
         outfile.write(json_object)
+        
+def safe_categories(categories):
+    config = load_config('category_config')
+    
+    if config == None:
+        config = {}
+    
+    config['categories'] = categories
+    
+    write_config('categories_config', config)
+        
+def safe_default_path(path):
+    config = load_config('user_config')
+    
+    if config == None:
+        config = {}
+    
+    config['default_path'] = path
+    
+    write_config('user_config', config)
 
-def load_config_categories(config_path):
+def load_config_categories():
+    config_path = get_config_folder() + 'category_config.json'
     with open(config_path) as f:
         data = json.load(f)
     categories = data['categories']
@@ -45,7 +65,7 @@ def load_config_categories(config_path):
 
 
 def search_for_new_categories(dealings, path_excel):
-    categories = load_config_categories(config_path)
+    categories = load_config_categories()
     print(categories)
     found_categories = {}
     

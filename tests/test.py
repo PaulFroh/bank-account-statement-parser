@@ -1,4 +1,5 @@
 import unittest
+import openpyxl
 
 import config_helper
 import excel_helper
@@ -12,7 +13,7 @@ class ExampleTest(unittest.TestCase):
 class ExcelTest(unittest.TestCase):
     
     def test_new_categories(self):
-        path_excel = config_helper.load_config()["default_path"]
+        path_excel = config_helper.get_excel_path()
         
         categories_new = {"Test": ["Keyword_1", "Test2"], "Lebensmittel": ["Test"]}
         
@@ -21,10 +22,24 @@ class ExcelTest(unittest.TestCase):
 class ConfigGUITest(unittest.TestCase):
     
     def test_startup(self):
-        path_excel = config_helper.load_config()["default_path"]
+        path_excel = config_helper.get_excel_path()
         found_categories = {"Test": ["Keyword_1", "Test2"], "Lebensmittel": ["Test"], "Discounter": ["Netto", "Aldi", "Penny"], "Pornohefte": ["Playboy"], "Dümmste Mitbewohner": ["Jean", "Maria", "Aldi"]}
         
         CategoryGUI(found_categories, path_excel)
+        
+        
+class ExportCategories(unittest.TestCase):
+    
+    def test_export_config(self):
+        path_excel = config_helper.get_excel_path()
+        
+        workbook = openpyxl.load_workbook(path_excel)
+        categories = excel_helper.load_categories_from_excel(workbook, all=True)
+        config_helper.safe_categories(categories)
+        
+        
+        
+        
         
 
 
