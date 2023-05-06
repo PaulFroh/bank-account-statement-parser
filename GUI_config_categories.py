@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-class CategorieGUI():
+class CategoryGUI():
     
     def __init__(self) -> None:
         self.root = tk.Tk()
@@ -109,4 +109,4 @@ class CategorieGUI():
                     selected_categories[text] = [keyword['text'] for keyword in child.master.winfo_children() if isinstance(keyword, tk.Checkbutton) and keyword['variable'].get() == 1]
 
 
-CategorieGUI()
+CategoryGUI()

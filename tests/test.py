@@ -24,7 +24,7 @@ class ConfigGUITest(unittest.TestCase):
         path_excel = config_helper.load_config()["default_path"]
         found_categories = {"Test": ["Keyword_1", "Test2"], "Lebensmittel": ["Test"], "Discounter": ["Netto", "Aldi", "Penny"], "Pornohefte": ["Playboy"], "Dümmste Mitbewohner": ["Jean", "Maria", "Aldi"]}
         
-        GUI_config_categories(found_categories, path_excel)
+        CategoryGUI(found_categories, path_excel)
         
 
 
