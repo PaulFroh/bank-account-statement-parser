@@ -145,13 +145,13 @@ def get_dealings(lines):
     return array # erster Eintrag ist alter Kontostand
 
 
-def parse_pdf(path, categories):
+def parse_pdf(path):
     print("Path to PDF: " + path)
     first_row = ["", "Date", "Category", "Use", "Keyword", "Price"]
     
     page_count, month = get_info(path)
     lines = get_relevant_lines(path, page_count)
-    dealings = get_dealings(lines, categories)
+    dealings = get_dealings(lines)
 
     return first_row, dealings, month
 
