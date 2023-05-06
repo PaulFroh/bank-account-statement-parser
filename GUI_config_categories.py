@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+from excel_helper import export_new_categories
+
 class CategoryGUI():
     
     def __init__(self) -> None:
@@ -106,12 +108,13 @@ class CategoryGUI():
 
 
     def transfer_categories(self):
-        selected_categories = {}
-        for child in self.inner_frame.winfo_children():
-            if isinstance(child, tk.Checkbutton) and child['variable'].get() == 1:
-                text = child['text']
-                if text in self.found_categories:
-                    selected_categories[text] = [keyword['text'] for keyword in child.master.winfo_children() if isinstance(keyword, tk.Checkbutton) and keyword['variable'].get() == 1]
-
-
-CategoryGUI()
+        categories = {}
+        for category in self.keyword_checkboxes:
+            for checkbox_status in self.keyword_checkboxes[category]:
+                if checkbox_status[1].get():
+                    if category not in categories.keys():
+                        categories[category] = []
+                    categories[category].append(checkbox_status[0])
+                                
+        print(categories)
+        export_new_categories(categories, self.path_excel)
