@@ -1,0 +1,95 @@
+{
+    "categories": {
+        "Kategorien": [],
+        "Einkommen": [
+            "Gehalt",
+            "Taschengeld"
+        ],
+        "Lebensmittel": [
+            "Rewe",
+            "Studierendenwerk",
+            "ULB1",
+            "Penny",
+            "Alnatura",
+            "Tegut",
+            "Aldi",
+            "Lidl",
+            "Netto",
+            "Kaufland",
+            "Bormuth",
+            "Wiener Feinbackerei",
+            "Schroeer",
+            "Baecker",
+            "Flink",
+            "Backfactory",
+            "Woodrich",
+            "Pizzeria",
+            "McDonalds"
+        ],
+        "Kleidung": [
+            "Superdry",
+            "Snocks",
+            "Otrium",
+            "Uniqlo",
+            "Benetton"
+        ],
+        "Gesundheit": [
+            "Hansemerkur",
+            "Apotheke",
+            "Rossmann",
+            "dm"
+        ],
+        "Bildung": [
+            "Hochschule Darmstadt",
+            "Hugendubel",
+            "Framework"
+        ],
+        "Wohnen": [
+            "Huegel 71",
+            "Strom",
+            "Telekom",
+            "Garage",
+            "Bauhaus",
+            "Obi",
+            "Hornbach"
+        ],
+        "Transport": [
+            "HUK- Coburg",
+            "Shell",
+            "Jet",
+            "Bolt",
+            "DB Vertrieb",
+            "Aral",
+            "Parkhaus",
+            "Fahrschein"
+        ],
+        "Sport": [
+            "McFit",
+            "Tauchclub",
+            "Decathlon"
+        ],
+        "Investments": [
+            "Trade Republic"
+        ],
+        "Medien": [
+            "Netflix",
+            "Telefonica"
+        ],
+        "Freizeit": [
+            "Eventim",
+            "Schlachthof",
+            "Eintracht Frankfurt"
+        ],
+        "Urlaub": [
+            "Airbnb",
+            "Kleinarl",
+            "DZ Bank"
+        ],
+        "Konsum": [
+            "PayPal",
+            "American Express",
+            "Amazon",
+            "Karte"
+        ]
+    }
+}
