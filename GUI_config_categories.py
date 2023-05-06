@@ -64,12 +64,15 @@ class CategoryGUI():
 
 
         # LOOPS which create as many checkbuttons as categories and sub categories 
+        self.keyword_checkboxes = {}
         index_category = 0
         row_index = 0  # Row index for order of checkbuttons
         for category in self.found_categories:
             check_state = tk.IntVar()
             check = tk.Checkbutton(self.inner_frame, text=category, font=('Arial',10, 'bold'), variable=check_state)
             check.grid(row=row_index, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
+            
+            self.keyword_checkboxes[category] = []
 
             # Order of the subcategory per category
             index_keyword = 0
@@ -78,6 +81,8 @@ class CategoryGUI():
                 check = tk.Checkbutton(self.inner_frame, text=keyword, font=('Arial',10), bg="white", fg="black", variable=check_state)
                 check.grid(row=row_index+1+index_keyword, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
                 index_keyword += 1
+                
+                self.keyword_checkboxes[category].append((keyword, check_state))
             
             # After every fourth category a new row will begin
             index_category += 1
