@@ -9,7 +9,8 @@ class CategoryGUI():
         self.root = tk.Tk()
         self.root.geometry("800x550")
         self.root.title("Categories-Configurator")
-        self.found_categories = {"Oberkategorie_1": ["Keyword_1", "Test2"], "Oberkategorie_2": ["Test"], "Oberkategorie_3": ["Netto", "Aldi", "Penny"], "Oberkategorie_4": ["Playboy"], "Oberkategorie_5": ["Jean", "Maria", "Aldi","Lange","Liste","Hallo"], "Oberkategorie_6": ["Keyword_4", "Test3"], "Oberkategorie_7": ["Testen"], "Oberkategorie_8": ["Testo"], "Oberkategorie_9": ["Netto Markendiscount", "Aldipuh", "PennyDenny"], "Oberkategorie_10": ["Playboyman"], "Oberkategorie_11": ["Joa", "Mario", "Alda"], "Oberkategorie_12": ["Keyword_10", "Test100"]}
+        self.found_categories = found_categories
+        self.excel_path = excel_path
         # Outer frames
         frame1 = tk.Frame(self.root, height=75, width=800, bd=2, relief="groove")
         frame1.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -117,4 +118,4 @@ class CategoryGUI():
                     categories[category].append(checkbox_status[0])
                                 
         print(categories)
-        export_new_categories(categories, self.path_excel)
+        export_new_categories(categories, self.excel_path)
