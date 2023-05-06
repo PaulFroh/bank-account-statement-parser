@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 from excel_helper import export_new_categories
 
@@ -119,3 +119,5 @@ class CategoryGUI():
                                 
         print(categories)
         export_new_categories(categories, self.excel_path)
+        messagebox.showinfo("Info", "The new categories are now in the excel")
+        self.quit()
