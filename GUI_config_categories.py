@@ -91,7 +91,7 @@ class CategorieGUI():
 
         self.root.mainloop()
 
-    def resize_canvas(self):
+    def resize_canvas(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     
