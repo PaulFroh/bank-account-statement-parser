@@ -7,7 +7,7 @@ class CategorieGUI():
         self.root = tk.Tk()
         self.root.geometry("800x550")
         self.root.title("Categories-Configurator")
-        self.found_categories = {"Test": ["Keyword_1", "Test2"], "Lebensmittel": ["Test"], "Discounter": ["Netto", "Aldi", "Penny"], "Pornohefte": ["Playboy"], "Dümmste Mitbewohner": ["Jean", "Maria", "Aldi","Lange","Liste","Hallo"], "Test5": ["Keyword_4", "Test3"], "Lebensmittellager": ["Testen"], "Lebensmitteltest": ["Testo"], "Discounterpreise": ["Netto Markendiscount", "Aldipuh", "PennyDenny"], "Pornoheftelecker": ["Playboyman"], "Dümmste Eis": ["Joa", "Mario", "Alda"], "Test8": ["Keyword_10", "Test100"]}
+        self.found_categories = {"Oberkategorie_1": ["Keyword_1", "Test2"], "Oberkategorie_2": ["Test"], "Oberkategorie_3": ["Netto", "Aldi", "Penny"], "Oberkategorie_4": ["Playboy"], "Oberkategorie_5": ["Jean", "Maria", "Aldi","Lange","Liste","Hallo"], "Oberkategorie_6": ["Keyword_4", "Test3"], "Oberkategorie_7": ["Testen"], "Oberkategorie_8": ["Testo"], "Oberkategorie_9": ["Netto Markendiscount", "Aldipuh", "PennyDenny"], "Oberkategorie_10": ["Playboyman"], "Oberkategorie_11": ["Joa", "Mario", "Alda"], "Oberkategorie_12": ["Keyword_10", "Test100"]}
         # Outer frames
         frame1 = tk.Frame(self.root, height=75, width=800, bd=2, relief="groove")
         frame1.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -65,13 +65,13 @@ class CategorieGUI():
 
         # LOOPS which create as many checkbuttons as categories and sub categories 
         index_category = 0
-        row_index = 0  # Zeilenindex für die Anordnung der Checkboxen
+        row_index = 0  # Row index for order of checkbuttons
         for category in self.found_categories:
             check_state = tk.IntVar()
             check = tk.Checkbutton(self.inner_frame, text=category, font=('Arial',10, 'bold'), variable=check_state)
             check.grid(row=row_index, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
 
-            # Anordnung der Unterkategorien pro Kategorie
+            # Order of the subcategory per category
             index_keyword = 0
             for keyword in self.found_categories[category]:
                 check_state = tk.IntVar()
@@ -79,7 +79,7 @@ class CategorieGUI():
                 check.grid(row=row_index+1+index_keyword, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
                 index_keyword += 1
             
-            # Nach jeder vierten Kategorie wird eine neue Zeile begonnen
+            # After every fourth category a new row will begin
             index_category += 1
             if index_category % 4 == 0:
                 row_index += index_keyword + 40  # +2 für die Lücke zwischen den Kategorien
