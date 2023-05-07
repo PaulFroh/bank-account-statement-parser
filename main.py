@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-import parse_pdf
+import pdf_helper
 import config_helper
 
 from excel_helper import export_new_categories
@@ -98,7 +98,7 @@ class MainGUI(tk.Tk):   # definition of the class
             print(f"Excel-Filepath: {excel_file_path}")
             print(f"PDF-Filepath: {pdf_file_path}")
             
-            found_categories = parse_pdf.execute_parse(excel_file_path, pdf_file_path, search_categories=True)
+            found_categories = pdf_helper.execute_parse(excel_file_path, pdf_file_path, search_categories=True)
             
             if found_categories != None:
                 category_window = CategoryGUI(self, found_categories, excel_file_path)
@@ -227,7 +227,7 @@ class CategoryGUI(tk.Toplevel):
         
         excel_file_path = self.parent.entry.get()
         pdf_file_path = self.parent.entry_1.get()
-        parse_pdf.execute_parse(excel_file_path, pdf_file_path, search_categories=False)
+        pdf_helper.execute_parse(excel_file_path, pdf_file_path, search_categories=False)
         
         self.quit()
 
