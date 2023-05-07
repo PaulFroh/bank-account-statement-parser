@@ -98,9 +98,6 @@ class MainGUI(tk.Tk):   # definition of the class
             print(f"Excel-Filepath: {excel_file_path}")
             print(f"PDF-Filepath: {pdf_file_path}")
             
-            found_categories = []
-            #while found_categories != None:
-            
             found_categories = parse_pdf.execute_parse(excel_file_path, pdf_file_path, search_categories=True)
             
             if found_categories != None:
