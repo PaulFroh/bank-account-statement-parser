@@ -28,9 +28,6 @@ python GUI_pathfinder.py
 
 
 # Usage
-Firstly you have to open the file "Budget-Book-Template.xlsx". You will see the template for your personal Excel file.
-
-
 - The Window "Path-Configurator" will pop up and you will have to choose two paths.
 
 ![](images/gui.jpg)
@@ -46,20 +43,20 @@ Firstly you have to open the file "Budget-Book-Template.xlsx". You will see the 
 - If the parser finds new Categories the window "Categories-Configurator" will pop up and you will have different options
 
 ![](images/Categories_Custom-Settings.png)
-    - Option 1: You tick the checkbutton "Select All" and press the Button "Yes". This will take all new categories and keywords as sub categories and add them to the excel.
-    -  Option 2: You tick only some checkbuttons and press "Yes". This will take all ticked new categories and keywords as sub categories and add them to the excel.
-    -  Option 3: You press "No". This will close the window and nothing will be added to the excel.
 
-
-
-
+- Option 1: You tick the checkbutton "Select All" and press the Button "Yes". This will take all new categories and keywords as sub categories and add them to the excel.
+- Option 2: You tick only some checkbuttons and press "Yes". This will take all ticked new categories and keywords as sub categories and add them to the excel.
+- Option 3: You press "No". This will close the window and nothing will be added to the excel.
 - Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
 
 ![](images/excel.jpg)
 
 - Balance, Income, Expanses and Balance will be filled automaticly
 - The cell called "CATEGORIES" will stay the same. It just tells you that now the list of different categories will start underneath
-- The mainstep you have to accomplish is to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORIE as many SUB-CATEGORIES.
+- Only the categories the parser found and the keywords you ticked in the window "Categories-Configurator" will be automatically transfered into the excel. Which means nothing more to do!
+
+The following Steps can be taken but since the latest update you will likely not have to make any changes in the excel file itselfanymore!
+- You have the option to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORIE as many SUB-CATEGORIES.
 - The SUB-CATEGORIES can either be written in caps or lower cases, it doesn't matter **BUT** you will have to use the same pattern aus shown in the picture above. (Top-Categories have to be in collumn A and Sub-Categories have to be in collumn B)
 - ***Important***: The sub-categories will also be ***the kewords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more kewords you will generate. As a result the overview will be more accurate.
 
