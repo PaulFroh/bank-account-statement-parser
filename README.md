@@ -60,12 +60,12 @@ The following Steps can be taken but since the latest update you will likely not
 - The SUB-CATEGORIES can either be written in caps or lower cases, it doesn't matter **BUT** you will have to use the same pattern aus shown in the picture above. (Top-Categories have to be in collumn A and Sub-Categories have to be in collumn B)
 - ***Important***: The sub-categories will also be ***the kewords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more kewords you will generate. As a result the overview will be more accurate.
 
-When you are done with the adjustment of the Excel-file you ***have to safe and close the Excel file before starting the "bank-account-statement-parser-1.0.0.exe"*** by double cklicking it.
+When you are done with the adjustment of the Excel-file you ***have to safe and close the Excel file before starting the "bank-account-statement-parser-1.0.0.exe"*** by double clicking it.
 
 # Build
-nd one that builds the program in a directory. The advantage of the directory is the startup time, but the EXE is nice and small and maybe for mobile applications on a USB stick more appropriate.  
-To run pyinstaller (if you already installed pyinstaller via pip) use:
+If you want to build the program on your own machine, you can use pyinstaller. Pyinstaller is a nice little program that can build executables for windows, mac and linux. We provide two different .spec files for the pyinstaller, one that builds only the EXE and one that builds the program in a directory. The advantage of the directory is the startup time, but the EXE is nice and small and maybe for mobile applications on a USB stick more appropriate.  
+To run pyinstaller (if you already installed pyinstaller via pip) use
 ```basch
 pyinstaller --clean .\Bank-Account-Statement-Parser-EXE.spec
 ```
-if you want the directory, use the -DIR.spec file. 
+if you want the directory, use the -DIR.spec file.
