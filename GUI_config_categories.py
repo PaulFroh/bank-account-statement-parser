@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+
+
 from excel_helper import export_new_categories
 
 class CategoryGUI():
@@ -20,7 +22,7 @@ class CategoryGUI():
 
         # Outer Content
         # Headline
-        label_headline = tk.Label(frame1, text="Categories Custom-Settings", font=("Arial", 23, 'bold'),  fg="black")
+        label_headline = tk.Label(frame1, text="Categories Custom-Settings", font=("Helvetica", 23, 'bold underline'),  fg="black")
         label_headline.pack(side=tk.TOP, pady=30)
 
         # Checkbox für alle Kategorien
@@ -52,16 +54,16 @@ class CategoryGUI():
                         widget.select()
 
         # Lable which asks you if you want to add the categories and keywords to the excel file
-        label_transfer = tk.Label(frame3, text="Add the new categories?", font=('Arial',11, 'bold'))
+        label_transfer = tk.Label(frame3, text="Add the selected categories?", font=('Helvetica',11, 'bold'))
         label_transfer.pack(side=tk.TOP, padx="80", pady="10", anchor='ne')
 
         # button for NOT adding the new categories to the excel /transfer the data
-        button_dont = tk.Button(frame3, text="No", relief="groove", font=('Arial',11), bg="lightgrey", width=10, command=self.quit)
+        button_dont = tk.Button(frame3, text="No", relief="groove", font=('Helvetica',11), bg="lightgrey", width=10, command=self.quit)
         button_dont.pack(side=tk.RIGHT, padx="50", pady="10")
 
 
         # button for adding the new categories to the excel /transfer the data
-        button_do = tk.Button(frame3, text="Yes", relief="groove", font=('Arial',11), width=10, bg="lightgrey", command=self.transfer_categories)
+        button_do = tk.Button(frame3, text="Yes", relief="groove", font=('Helvetica',11), width=10, bg="lightgrey", command=self.transfer_categories)
         button_do.pack(side=tk.RIGHT, padx="10", pady="10")
         #button_do.config(command=transfer_categories)
 
@@ -71,8 +73,8 @@ class CategoryGUI():
         index_category = 0
         row_index = 0  # Row index for order of checkbuttons
         for category in self.found_categories:
-            label = tk.Label(self.inner_frame, text=category, font=('Arial',10, 'bold'))
-            label.grid(row=row_index, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
+            label = tk.Label(self.inner_frame, text=category, font=('Helvetica',10, 'bold underline'),bg="white", fg="black",)
+            label.grid(row=row_index, column=(index_category%4)*2, padx="20", pady="5", sticky=tk.W)
             
             
             self.keyword_checkboxes[category] = []
@@ -81,8 +83,8 @@ class CategoryGUI():
             index_keyword = 0
             for keyword in self.found_categories[category]:
                 check_state = tk.IntVar()
-                check = tk.Checkbutton(self.inner_frame, text=keyword, font=('Arial',10), bg="white", fg="black", variable=check_state)
-                check.grid(row=row_index+1+index_keyword, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
+                check = tk.Checkbutton(self.inner_frame, text=keyword, font=('Helvetica',10), bg="white", fg="black", variable=check_state)
+                check.grid(row=row_index+1+index_keyword, column=(index_category%4)*2, padx="30", pady="5", sticky=tk.W)
                 index_keyword += 1
                 
                 self.keyword_checkboxes[category].append((keyword, check_state))
