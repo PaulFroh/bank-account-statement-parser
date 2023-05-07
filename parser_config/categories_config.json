@@ -3,7 +3,8 @@
         "Kategorien": [],
         "Einkommen": [
             "Gehalt",
-            "Taschengeld"
+            "Taschengeld",
+            "Renten Service"
         ],
         "Lebensmittel": [
             "Rewe",
@@ -21,34 +22,53 @@
             "Schroeer",
             "Baecker",
             "Flink",
+            "AllDrink"
+        ],
+        "Essen": [
             "Backfactory",
             "Woodrich",
             "Pizzeria",
-            "McDonalds"
+            "McDonalds",
+            "MoschMosch",
+            "Burger King",
+            "Subway",
+            "Shoppen Hof",
+            "Ditsch",
+            "Hans im Glueck",
+            "Kebap"
         ],
         "Kleidung": [
             "Superdry",
             "Snocks",
             "Otrium",
             "Uniqlo",
-            "Benetton"
+            "Benetton",
+            "ASOSCOMLTD",
+            "Pull . Bear",
+            "HM"
         ],
         "Gesundheit": [
             "Hansemerkur",
             "Apotheke",
+            "Krankenkasse"
+        ],
+        "Drogerie": [
             "Rossmann",
-            "dm"
+            "DM"
         ],
         "Bildung": [
             "Hochschule Darmstadt",
-            "Hugendubel",
-            "Framework"
+            "Technische Universität",
+            "Hugendubel"
         ],
         "Wohnen": [
-            "Huegel 71",
             "Strom",
+            "Gas",
+            "Miete",
             "Telekom",
+            "Vodafone",
             "Garage",
+            "IKEA",
             "Bauhaus",
             "Obi",
             "Hornbach"
@@ -61,19 +81,26 @@
             "DB Vertrieb",
             "Aral",
             "Parkhaus",
-            "Fahrschein"
+            "Fahrschein",
+            "Book-n-Drive"
         ],
         "Sport": [
             "McFit",
             "Tauchclub",
-            "Decathlon"
+            "Decathlon",
+            "Canyon",
+            "McFit",
+            "MyLifeStyleClub"
         ],
         "Investments": [
-            "Trade Republic"
+            "Trade Republic",
+            "Scalable Capital"
         ],
-        "Medien": [
+        "Streaming": [
             "Netflix",
-            "Telefonica"
+            "WOW",
+            "Amznprime",
+            "Disney"
         ],
         "Freizeit": [
             "Eventim",
@@ -81,9 +108,7 @@
             "Eintracht Frankfurt"
         ],
         "Urlaub": [
-            "Airbnb",
-            "Kleinarl",
-            "DZ Bank"
+            "Airbnb"
         ],
         "Konsum": [
             "PayPal",
