@@ -57,7 +57,7 @@ def safe_default_path(path):
     write_config('user_config', config)
 
 def load_config_categories():
-    config_path = get_config_folder() + 'category_config.json'
+    config_path = get_config_folder() + 'categories_config.json'
     with open(config_path) as f:
         data = json.load(f)
     categories = data['categories']
@@ -78,7 +78,11 @@ def search_for_new_categories(dealings, path_excel):
                 for keyword in categories[category]:
                     keyword_str = str(keyword).upper()
                     if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
-                        found_categories[category] = keyword
+                        if category not in found_categories.keys():
+                            found_categories[category] = []
+                        
+                        if keyword not in found_categories[category]:
+                            found_categories[category].append(keyword)
 
     CategoryGUI(found_categories, path_excel)
 

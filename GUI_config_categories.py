@@ -8,6 +8,7 @@ from excel_helper import export_new_categories
 class CategoryGUI():
     
     def __init__(self, found_categories, excel_path) -> None:
+        print(found_categories)
         self.root = tk.Tk()
         self.root.geometry("800x550")
         self.root.title("Categories-Configurator")

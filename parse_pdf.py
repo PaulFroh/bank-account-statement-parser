@@ -164,7 +164,7 @@ def execute_parse(path_excel, path_to_pdfs, search_categories = False):
         categories = excel_helper.load_categories_from_excel(excel_file)
 
         if os.path.isfile(path_to_pdfs):
-            first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
+            first_row, dealings, month = parse_pdf(path_to_pdfs)
             dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
             dealings = identify_category(dealings, categories)
             # if signal is true load categories from config an check for new categories
@@ -183,7 +183,7 @@ def execute_parse(path_excel, path_to_pdfs, search_categories = False):
                 path_to_pdfs += os.sep
 
             for pdf in os.listdir(path_to_pdfs):
-                first_row, dealings, month = parse_pdf(pdf, categories)
+                first_row, dealings, month = parse_pdf(pdf)
                 dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
                 excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
                 print('')
