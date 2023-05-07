@@ -11,56 +11,66 @@ class MainGUI(tk.Tk):   # definition of the class
         super().__init__()
         
         self.resizable(0,0)    # Window is not adjustable
-        self.geometry("680x450")
+        self.geometry("800x550")
         self.title("Path-Configurator")
+        # Outer frames
+        frame_top = tk.Frame(self, height=100, width=800)
+        frame_top.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        frame_mid = tk.Frame(self, height=150, width=800)
+        frame_mid.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        frame_bot = tk.Frame(self, height=150, width=800)
+        frame_bot.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        frame_botright = tk.Frame(self, height=150, width=800)
+        frame_botright.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
         # Headline
-        self.label = tk.Label(self, text="Bank Account Statement Parser", font=('Arial', 18))   # adds a Label above the entry to let people know what the program expects
-        self.label.grid(column=1, row=1, padx="20", pady="50")
+        self.label = tk.Label(frame_top, text="Bank Account Statement Parser", font=('Helvetica', 23, 'bold underline'))   # adds a Label above the entry to let people know what the program expects
+        self.label.pack(side=tk.TOP, pady="30", anchor="center")
 
 
-        # Lable for the Excel file-path entry
-        self.label = tk.Label(self, text="Excel-File path:", font=('Arial',11))   # adds a Label so people know what the program expects
-        self.label.grid(column=0, row=2, padx="10", pady="10")
+        # Label for the Excel file-path entry
+        self.label = tk.Label(frame_mid, text="Excel-File path:", font=('Helvetica',11))   # adds a Label so people know what the program expects
+        self.label.pack(side=tk.LEFT, padx="30", pady="10", anchor="n")
         # entry for the Excel file
-        self.entry = tk.Entry (self, text="Hallo", width=50, font=('Arial',11))              # ads the entry field 
-        
+        self.entry = tk.Entry (frame_mid, width=70, font=('Helvetica',11))   # ads the entry field 
+        self.entry.pack(pady="10", anchor="nw")
+
         excel_path = config_helper.get_excel_path()
         if excel_path != None:
             self.entry.delete(0, "end")
             self.entry.insert(0, excel_path)  
         
-        
-        self.entry.grid(column=1, row=2, padx="10", pady="10")
         # button for adding an Excel-file path
-        self.button = tk.Button(self, text="Choose path", relief="groove" , font=('Arial', 10), bg="lightgrey", command=lambda: self.excel_directory(self.entry))  # if you click on the button the function show_directory will be passed and called whenever the button is clicked
-        self.button.grid(column=1, row=3, padx="10", pady="10", sticky=tk.E)
+        self.button = tk.Button(frame_mid, text="Choose path", width="11", relief="groove" , font=('Helvetica', 10), bg="lightgrey", command=lambda: self.excel_directory(self.entry))  # if you click on the button the function show_directory will be passed and called whenever the button is clicked
+        self.button.pack(side=tk.RIGHT, padx="70", pady="10", anchor="ne")
 
-        # adding a check button for default excel path
+
+        # adding a checkbutton for default excel path
         self.check_state = tk.IntVar()
-        self.check = tk.Checkbutton(self, text="Set to default", font=('Arial',10), variable=self.check_state)
-        self.check.grid(column=1, row=3, padx="5", pady="5", sticky=tk.W)
+        self.check = tk.Checkbutton(frame_mid, text="Set to default", font=('Helvetica',10), variable=self.check_state)
+        self.check.pack(side=tk.TOP, pady="5", anchor="w")
 
 
-        # Lable for the pdf file-path entry
-        self.label_1 = tk.Label(self, text="PDF-File path:", font=('Arial',11))   # adds a Label so people know what the program expects
-        self.label_1.grid(column=0, row=4, padx="10", pady="10")
+        # Label for the pdf file-path entry
+        self.label_1 = tk.Label(frame_bot, text="PDF-File path:", font=('Helvetica',11))   # adds a Label so people know what the program expects
+        self.label_1.pack(side=tk.LEFT, padx="34", pady="10", anchor="n")
         # entry for the pdf file
-        self.entry_1 = tk.Entry (self, width=50, font=('Arial',11))              # ads the entry field 
-        self.entry_1.grid(column=1, row=4, padx="10", pady="10")
+        self.entry_1 = tk.Entry (frame_bot, width=70, font=('Helvetica',11))              # ads the entry field 
+        self.entry_1.pack(pady="10", anchor="nw")
         # button for adding a pdf-file path
-        self.button_1 = tk.Button(self, text="Choose path", relief="groove", font=('Arial', 10), bg="lightgrey", command=lambda: self.pdf_directory(self.entry_1))  # if you click on the button the function show_directory_1 will be passed and called whenever the button is clicked
-        self.button_1.grid(column=1, row=5, padx="10", pady="10", sticky=tk.E)
+        self.button_1 = tk.Button(frame_bot, text="Choose path", width="11", relief="groove", font=('Helvetica', 10), bg="lightgrey", command=lambda: self.pdf_directory(self.entry_1))  # if you click on the button the function show_directory_1 will be passed and called whenever the button is clicked
+        self.button_1.pack(side=tk.RIGHT, padx="70", pady="10", anchor="ne")
 
-        # adding a check button for choosing a whole folder instead of only one file
+        # adding a checkbutton for choosing a whole folder instead of only one file
         self.check_state_1 = tk.IntVar()
-        self.check_1 = tk.Checkbutton(self, text="Choose folder", font=('Arial',10), variable=self.check_state_1)
-        self.check_1.grid(column=1, row=5, padx="5", pady="5", sticky=tk.W)
+        self.check_1 = tk.Checkbutton(frame_bot, text="Choose folder", font=('Helvetica',10), variable=self.check_state_1)
+        self.check_1.pack(side=tk.TOP, pady="5", anchor="w")
         
         
         #button for transfer the data in the end
-        self.button_run = tk.Button(self, text="Transfer", relief="groove", font=('Arial',11), bg="lightgrey", command=self.transfer_data)  # if you click on the button the function transfer data will be passed and called whenever the button is clicked
-        self.button_run.grid(column=2, row=6, padx="10",sticky=tk.E, pady="50")
+        self.button_run = tk.Button(frame_botright, text="Transfer", width="10", relief="groove", font=('Helvetica',11), bg="lightgrey", command=self.transfer_data)  # if you click on the button the function transfer data will be passed and called whenever the button is clicked
+        self.button_run.pack(side=tk.RIGHT, padx="70", anchor="ne")
     
     
 
@@ -72,7 +82,7 @@ class MainGUI(tk.Tk):   # definition of the class
         entry.insert(0, filepath)  # insert the selected file path
                     
        
-            # method to open pdf or file path
+         # method to open pdf or file path
     def pdf_directory(self, entry_1):
         checkbox_value_1 = self.check_state_1.get() 
         if checkbox_value_1 == 0:
@@ -108,7 +118,7 @@ class MainGUI(tk.Tk):   # definition of the class
             if checkbox_value:
                 config_helper.safe_default_path(excel_file_path)
                 
-                
+#######################################################################################################                
 
 class CategoryGUI(tk.Toplevel):
     
@@ -132,9 +142,9 @@ class CategoryGUI(tk.Toplevel):
         label_headline = tk.Label(frame1, text="Categories Custom-Settings", font=("Helvetica", 23, 'bold underline'),  fg="black")
         label_headline.pack(side=tk.TOP, pady=30)
 
-        # Checkbox für alle Kategorien
+        # Checkbox for all categories
         select_all_var = tk.IntVar()
-        select_all_checkbox = tk.Checkbutton(frame3, text="Select All", font=("Arial", 10, 'bold'), variable=select_all_var, command=lambda: select_all(select_all_var.get()))
+        select_all_checkbox = tk.Checkbutton(frame3, text="Select All", font=("Helvetica", 10, 'bold'), variable=select_all_var, command=lambda: select_all(select_all_var.get()))
         select_all_checkbox.pack(side=tk.LEFT, padx=40)
 
         # Middle frame with scrollbar
@@ -152,7 +162,7 @@ class CategoryGUI(tk.Toplevel):
         # Inner content
         self.inner_frame = tk.Frame(self.canvas, bg="white")
 
-        # Funktion zum Auswählen/Abwählen aller Checkboxen in frame2
+        # method to select or deselect of all checkbutton in frame2
         def select_all(value):
             for widget in self.inner_frame.winfo_children():
                 if isinstance(widget, tk.Checkbutton):
@@ -160,7 +170,7 @@ class CategoryGUI(tk.Toplevel):
                     if value == 1:
                         widget.select()
 
-        # Lable which asks you if you want to add the categories and keywords to the excel file
+        # Label which asks you if you want to add the categories and keywords to the excel file
         label_transfer = tk.Label(frame3, text="Add the selected categories?", font=('Helvetica',11, 'bold'))
         label_transfer.pack(side=tk.TOP, padx="80", pady="10", anchor='ne')
 
@@ -175,10 +185,10 @@ class CategoryGUI(tk.Toplevel):
         #button_do.config(command=transfer_categories)
 
 
-        # LOOPS which create as many checkbuttons as categories and sub categories 
+        # Loops which create as many checkbutton as categories and sub categories 
         self.keyword_checkboxes = {}
         index_category = 0
-        row_index = 0  # Row index for order of checkbuttons
+        row_index = 0  # Row index for order of checkbutton
         for category in self.found_categories:
             label = tk.Label(self.inner_frame, text=category, font=('Helvetica',10, 'bold underline'),bg="white", fg="black",)
             label.grid(row=row_index, column=(index_category%4)*2, padx="20", pady="5", sticky=tk.W)
@@ -198,7 +208,7 @@ class CategoryGUI(tk.Toplevel):
             # After every fourth category a new row will begin
             index_category += 1
             if index_category % 4 == 0:
-                row_index += index_keyword + 40  # +2 für die Lücke zwischen den Kategorien
+                row_index += index_keyword + 40  # +40 for the spaces between the categories
 
 
         self.canvas.create_window((0,0), window=self.inner_frame, anchor="nw")
