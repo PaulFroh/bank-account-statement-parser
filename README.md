@@ -30,16 +30,8 @@ python GUI_pathfinder.py
 # Usage
 Firstly you have to open the file "Budget-Book-Template.xlsx". You will see the template for your personal Excel file.
 
-![](images/excel.jpg)
 
-- Balance, Income, Expanses and Balance will be filled automaticly
-- The cell called "CATEGORIES" will stay the same. It just tells you that now the list of different categories will start underneath
-- The mainstep you have to accomplish is to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORIE as many SUB-CATEGORIES.
-- The SUB-CATEGORIES can either be written in caps or lower cases, it doesn't matter **BUT** you will have to use the same pattern aus shown in the picture above. (Top-Categories have to be in collumn A and Sub-Categories have to be in collumn B)
-- ***Important***: The sub-categories will also be ***the kewords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more kewords you will generate. As a result the overview will be more accurate.
-
-When you are done with the adjustment of the Excel-file you ***have to safe and close the Excel file before starting the "bank-account-statement-parser-1.0.0.exe"*** by double cklicking it.
-- The Window "Path-Configurator" will pop up you will have to choose two paths.
+- The Window "Path-Configurator" will pop up and you will have to choose two paths.
 
 ![](images/gui.jpg)
 
@@ -50,7 +42,28 @@ When you are done with the adjustment of the Excel-file you ***have to safe and 
 - Make sure you collect all your bank account statements for one year in one folder this makes it easy for you to feed the program with all of them together.
 - When you are done press the Transfer-Button on the bottom-right corner and the parsing process will start.
 - As soon as the process is finished you will see a message that everything has been transfered successfully.
+
+- If the parser finds new Categories the window "Categories-Configurator" will pop up and you will have different options
+
+![](images/Categories_Custom-Settings.png)
+    - Option 1: You tick the checkbutton "Select All" and press the Button "Yes". This will take all new categories and keywords as sub categories and add them to the excel.
+    -  Option 2: You tick only some checkbuttons and press "Yes". This will take all ticked new categories and keywords as sub categories and add them to the excel.
+    -  Option 3: You press "No". This will close the window and nothing will be added to the excel.
+
+
+
+
 - Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
+
+![](images/excel.jpg)
+
+- Balance, Income, Expanses and Balance will be filled automaticly
+- The cell called "CATEGORIES" will stay the same. It just tells you that now the list of different categories will start underneath
+- The mainstep you have to accomplish is to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORIE as many SUB-CATEGORIES.
+- The SUB-CATEGORIES can either be written in caps or lower cases, it doesn't matter **BUT** you will have to use the same pattern aus shown in the picture above. (Top-Categories have to be in collumn A and Sub-Categories have to be in collumn B)
+- ***Important***: The sub-categories will also be ***the kewords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more kewords you will generate. As a result the overview will be more accurate.
+
+When you are done with the adjustment of the Excel-file you ***have to safe and close the Excel file before starting the "bank-account-statement-parser-1.0.0.exe"*** by double cklicking it.
 
 # Build
 nd one that builds the program in a directory. The advantage of the directory is the startup time, but the EXE is nice and small and maybe for mobile applications on a USB stick more appropriate.  
