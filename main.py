@@ -98,14 +98,16 @@ class MainGUI(tk.Tk):   # definition of the class
             print(f"Excel-Filepath: {excel_file_path}")
             print(f"PDF-Filepath: {pdf_file_path}")
             
+            found_categories = []
+            #while found_categories != None:
+            
             found_categories = parse_pdf.execute_parse(excel_file_path, pdf_file_path, search_categories=True)
             
             if found_categories != None:
                 category_window = CategoryGUI(self, found_categories, excel_file_path)
                 category_window.grab_set()
-            #messagebox.showinfo("Info", "The file was successfully parsed")
+                
 
-            print(f"Checkbox-Value: {checkbox_value}")
             if checkbox_value:
                 config_helper.safe_default_path(excel_file_path)
                 
@@ -115,8 +117,8 @@ class CategoryGUI(tk.Toplevel):
     
     def __init__(self, parent, found_categories, excel_path) -> None:
         super().__init__(parent)
+        self.parent = parent
         
-        print(found_categories)
         self.geometry("800x550")
         self.title("Categories-Configurator")
         self.found_categories = found_categories
@@ -184,7 +186,6 @@ class CategoryGUI(tk.Toplevel):
             label = tk.Label(self.inner_frame, text=category, font=('Helvetica',10, 'bold underline'),bg="white", fg="black",)
             label.grid(row=row_index, column=(index_category%4)*2, padx="20", pady="5", sticky=tk.W)
             
-            
             self.keyword_checkboxes[category] = []
 
             # Order of the subcategory per category
@@ -194,8 +195,6 @@ class CategoryGUI(tk.Toplevel):
                 check = tk.Checkbutton(self.inner_frame, text=keyword, font=('Helvetica',10), bg="white", fg="black", variable=check_state)
                 check.grid(row=row_index+1+index_keyword, column=(index_category%4)*2, padx="30", pady="5", sticky=tk.W)
                 index_keyword += 1
-                
-                print(check_state)
                 
                 self.keyword_checkboxes[category].append((keyword, check_state))
             
@@ -214,9 +213,6 @@ class CategoryGUI(tk.Toplevel):
     
 
     def quit(self):
-        for category in self.keyword_checkboxes:
-            for checkbox_status in self.keyword_checkboxes[category]:
-                print(checkbox_status[1].get())
         self.destroy()
 
 
@@ -224,16 +220,18 @@ class CategoryGUI(tk.Toplevel):
         new_categories = {}
         for category in self.keyword_checkboxes:
             for checkbox_status in self.keyword_checkboxes[category]:
-                print(checkbox_status[1])
                 if checkbox_status[1].get():
-                    print(checkbox_status[0])
                     if category not in new_categories.keys():
                         new_categories[category] = []
                     new_categories[category].append(checkbox_status[0])
                                 
-        print(new_categories)
         export_new_categories(new_categories, self.excel_path)
         messagebox.showinfo("Info", "The new categories are now in the excel")
+        
+        excel_file_path = self.parent.entry.get()
+        pdf_file_path = self.parent.entry_1.get()
+        parse_pdf.execute_parse(excel_file_path, pdf_file_path, search_categories=False)
+        
         self.quit()
 
 

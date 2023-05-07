@@ -3,7 +3,6 @@ import json
 import re
 
 import excel_helper
-from GUI_config_categories import *
 
 
 def get_config_folder():
@@ -47,6 +46,7 @@ def safe_categories(categories):
     write_config('categories_config', config)
         
 def safe_default_path(path):
+    print("New default Path")
     config = load_config('user_config')
     
     if config == None:
@@ -84,7 +84,7 @@ def search_for_new_categories(dealings, path_excel):
                         if keyword not in found_categories[category]:
                             found_categories[category].append(keyword)
 
-    CategoryGUI(found_categories, path_excel)
+    return found_categories
 
 
     

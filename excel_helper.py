@@ -94,12 +94,9 @@ def insert_formulas(excel_sheet, index_str: str):
     
 def update_formulas(excel_sheet, start):
     index = start +1
-    print(excel_sheet["A" + str(index)].value)
-    print(excel_sheet["B" + str(index)].value)
     while not (excel_sheet["A" + str(index)].value == None and excel_sheet["B" + str(index)].value == None):
         
         insert_formulas(excel_sheet, str(index))
-        print(index)
         index += 1
     
 
