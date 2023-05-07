@@ -23,7 +23,7 @@ class ConfigGUITest(unittest.TestCase):
     
     def test_startup(self):
         path_excel = config_helper.get_excel_path()
-        found_categories = {"Oberkategorie Nr.1": ["Keyword_1", "Test2"], "Lebensmittel": ["Test"], "Discounter": ["Netto", "Aldi", "Penny"], "Oberkategorie Nr. 4": ["Playboy"], "Oberkategorie Nr.5": ["TestTest", "Maria", "Hall Welt"], "Oberkategorie Nr.6": ["TestTest", "Maria", "Hall Welt"], "Oberkategorie Nr.7": ["TestTest3", "Otto", "Hallo Welt"], "Oberkategorie Nr.8": ["TestTest", "Maria", "Hall Welt"], "Oberkategorie Nr.9": ["Unterkategorie", "Laptop", "Hall Welt"]}
+        found_categories = {"TOP CATEGORY Nr.1": ["Keyword Nr. 1", "Keyword Nr. 2"], "TOP CATEGORY Nr. 2": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3"], "TOP CATEGORY Nr. 3": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3", "Keyword Nr. 4"], "TOP CATEGORY Nr. 4": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3"], "TOP CATEGORY Nr.5": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3", "Keyword Nr. 4"], "TOP CATEGORY Nr.6": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3"], "TOP CATEGORY Nr.7": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3", "Keyword Nr. 4", "Keyword Nr. 5"], "TOP CATEGORY Nr.8": ["Keyword Nr. 1", "Keyword Nr. 2"], "TOP CATEGORY Nr.9": ["Keyword Nr. 1", "Keyword Nr. 2", "Keyword Nr. 3"]}
         
         CategoryGUI(found_categories, path_excel)
         
