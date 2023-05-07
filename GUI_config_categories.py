@@ -71,9 +71,9 @@ class CategoryGUI():
         index_category = 0
         row_index = 0  # Row index for order of checkbuttons
         for category in self.found_categories:
-            check_state = tk.IntVar()
-            check = tk.Checkbutton(self.inner_frame, text=category, font=('Arial',10, 'bold'), variable=check_state)
-            check.grid(row=row_index, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
+            label = tk.Label(self.inner_frame, text=category, font=('Arial',10, 'bold'))
+            label.grid(row=row_index, column=(index_category%4)*2, padx="5", pady="5", sticky=tk.W)
+            
             
             self.keyword_checkboxes[category] = []
 
