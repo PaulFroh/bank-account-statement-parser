@@ -84,7 +84,7 @@ def search_for_new_categories(dealings, path_excel):
                         if keyword not in found_categories[category]:
                             found_categories[category].append(keyword)
 
-    return found_categories
+    return found_categories if len(found_categories) > 0 else None
 
 
     

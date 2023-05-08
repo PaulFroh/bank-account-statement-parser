@@ -8,10 +8,36 @@ class ExampleTest(unittest.TestCase):
 
     def test_example(self):
         self.assertEqual(1,1, "Should be 1")
+        
+class ConfigHelper(unittest.TestCase):
+    
+    def test_search_for_new_categories(self):
+        dealings = []
+        
+        # Test if new categories are found
+        dealings.append([0, '3.04.2023', 'Sonstiges', 'Rewe', '', '30'])
+        dealings.append([0, '3.04.2023', 'Sonstiges', 'Netflix', '', '30'])
+        dealings.append([0, '3.04.2023', 'Sonstiges', 'Eventim', '', '30'])
+        dealings.append([0, '3.04.2023', 'Sonstiges', 'Das ist ein Test', '', '30'])
+        
+        found_categories = config_helper.search_for_new_categories(dealings, '')
+        self.assertEqual({'Lebensmittel': ['Rewe'], 'Streaming': ['Netflix'], 'Freizeit': ['Eventim']}, found_categories)
+        
+        
+        # test if the return value is correct if there are not new categories
+        dealings[0][2] = 'Lebensmittel'
+        dealings[1][2] = 'Streaming'
+        dealings[2][2] = 'Freizeit'
+        
+        found_categories = config_helper.search_for_new_categories(dealings, '')
+        self.assertEqual(None, found_categories)
+        
+        
 
 class ExcelTest(unittest.TestCase):
     
     def test_get_index_of_category(self):
+        # test if the get index works properly
         workbook = openpyxl.Workbook()
         workbook.create_sheet('Test')
         sheet = workbook['Test']
