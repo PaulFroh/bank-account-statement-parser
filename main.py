@@ -110,7 +110,7 @@ class MainGUI(tk.Tk):   # definition of the class
             
             found_categories = pdf_helper.execute_parse(excel_file_path, pdf_file_path, search_categories=True)
             
-            if found_categories != None:
+            if len(found_categories) > 0:
                 category_window = CategoryGUI(self, found_categories, excel_file_path)
                 category_window.grab_set()
                 

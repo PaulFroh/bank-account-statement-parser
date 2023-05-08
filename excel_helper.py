@@ -98,6 +98,17 @@ def update_formulas(excel_sheet, start):
         
         insert_formulas(excel_sheet, str(index))
         index += 1
+        
+def get_index_of_category(excel_sheet, category) -> int or None:
+    index = 1
+    
+    while excel_sheet['A' + str(index)].value != category:
+        if excel_sheet['A' + str(index)].value == 'Sonstiges':
+            index = None
+            break
+        index += 1
+    
+    return index
     
 
 def export_new_categories(categories_new, path_excel):
@@ -109,7 +120,7 @@ def export_new_categories(categories_new, path_excel):
     for new in categories_new:
         if new in categories_excel.keys():
             print("The category already exists appending keywords")
-            index = categories_excel[new][0] +1
+            index = get_index_of_category(overview_sheet, new) + 1
             index_str = str(index)
             
             for keyword in categories_new[new]:
@@ -119,7 +130,7 @@ def export_new_categories(categories_new, path_excel):
             
         else:
             print("New category")
-            index = categories_excel["Sonstiges"][0]
+            index = get_index_of_category(overview_sheet, 'Sonstiges') # the index is changing when something gets inserted
             index_str = str(index)
             
             overview_sheet.insert_rows(index)
