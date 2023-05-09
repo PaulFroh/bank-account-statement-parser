@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['GUI_pathfinder.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],

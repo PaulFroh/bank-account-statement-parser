@@ -2,11 +2,13 @@ import os
 import json
 import re
 
+from tkinter import messagebox
+
 import excel_helper
 
 
 def get_config_folder():
-    return '.' + os.sep + 'parser_config' + os.sep
+    return '.' + os.sep + 'config' + os.sep
 
 def load_config(config_name):
     config_path = get_config_folder() + config_name + '.json'
@@ -29,8 +31,8 @@ def get_excel_path():
 def write_config(config_name, config):
     json_object = json.dumps(config, indent=4)
 
-    if not os.path.exists('.' + os.sep + 'parser_config'):
-        os.mkdir("parser_config")
+    if not os.path.exists('.' + os.sep + 'config'):
+        os.mkdir("config")
 
     with open(get_config_folder() + config_name + '.json', 'w+') as outfile:
         outfile.write(json_object)
@@ -58,6 +60,11 @@ def safe_default_path(path):
 
 def load_config_categories():
     config_path = get_config_folder() + 'categories_config.json'
+    
+    if not os.path.exists(config_path):
+        messagebox.showinfo("Info", "The config for the categories is missing and therefore the automatic search is not working")
+        return {}
+        
     with open(config_path) as f:
         data = json.load(f)
     categories = data['categories']

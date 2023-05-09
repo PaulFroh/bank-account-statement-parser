@@ -194,7 +194,7 @@ def execute_parse(path_excel, path_to_pdfs, search_categories = False):
         
         else:
             messagebox.showerror(title='Error', message='This PDF file does not exist!')
-            return False
+            return None
         
         # update the overview table in the excel with the new categories
     except Exception as e:

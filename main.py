@@ -220,6 +220,7 @@ class CategoryGUI(tk.Toplevel):
     
 
     def quit(self):
+        messagebox.showinfo("Info", "The file was successfully parsed")
         self.destroy()
 
 
