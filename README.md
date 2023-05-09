@@ -1,15 +1,16 @@
 # bank-account-statement-parser
-A simple program to transfer your bank statements into an excel file. The program can recognize and assign simple keywords in the transactions and offers a simple GUI to select the pdfs and excel file. 
+A simple program to transfer your bank statements into an excel file. The program can recognize and assign simple keywords in the transactions and offers a simple GUI to select the PDF's and the excel file. Furthermore you will have the option to add suggested categories to your excel based on the categories found while parsing.
 
 
 # Install
 ### Directory Structure
-Not much needs to be taken care of, only that if a default path for the Excel is chosen (see Usage), a configuration folder and file will be created in the same folder as the program. To use the config the program needs to be in the same folder, something like this:
+Not much needs to be taken care of, only that if a default path for the Excel is chosen (see Usage), a configuration folder and two files will be created in the same folder as the program. To use the config the program needs to be in the same folder, the directory structure should look like this:
 ```bash
 bank-account-statement-parser
-├───config_parser
-│   └───config.json
-├───Bank-Account-Statement-Parser-1.0.0.exe
+├───config
+│   └───categories_config.json
+│   └───user_config.json
+├───Bank-Account-Statement-Parser-1.2.0.exe
 ```
 This is also valid if you are using the plain python files.
 
@@ -38,15 +39,15 @@ python GUI_pathfinder.py
     - If you would like to upload a whole bunch of pdf's together, simply tick the checkbox below and choose for example the whole 2023 folder with all your pdf's of 2023
 - Make sure you collect all your bank account statements for one year in one folder this makes it easy for you to feed the program with all of them together.
 - When you are done press the Transfer-Button on the bottom-right corner and the parsing process will start.
-- As soon as the process is finished you will see a message that everything has been transferred successfully.
+- As soon as the process is finished and the parser didn't find new categories, there will be a message that everything has been transferred successfully to your excel file.
 
-- If the parser finds new Categories the window "Categories-Configurator" will pop up and you will have different options
+- If the parser finds new Categories a new window "Categories-Configurator" will pop up and you will have different options:
 
 ![](images/Categories_Custom-Settings.png)
 
-- Option 1: You tick the checkbutton "Select All" and press the Button "Yes". This will take all new categories and keywords as sub categories and add them to the excel.
-- Option 2: You tick only some checkbuttons and press "Yes". This will take all ticked new categories and keywords as sub categories and add them to the excel.
-- Option 3: You press "No". This will close the window and nothing will be added to the excel.
+- Option 1: You tick the checkbox "Select All" and press the Button "Yes". This will take all new categories and keywords as sub categories and add them to the excel.
+- Option 2: You tick only some checkbox and press "Yes". This will take all ticked new categories and keywords as sub categories and add them to the excel.
+- Option 3: You press "No". This will close the window and everything will be added to only one category called "Sonstiges", which means you have to add all the categories you want by yourself.
 - Now open "Budget-Book-Template.xlsx" and enjoy the financial overview of the year!
 
 ![](images/excel.jpg)
@@ -56,7 +57,7 @@ python GUI_pathfinder.py
 - Only the categories the parser found and the keywords you ticked in the window "Categories-Configurator" will be automatically transferred into the excel. Which means nothing more to do!
 
 The following Steps can be taken but since the latest update you will likely not have to make any changes in the excel file it self anymore!
-- You have the option to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY" it is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add to every TOP CATEGORY as many SUB-CATEGORIES.
+- You have the option to edit your "TOP CATEGORY" and the corresponding "SUB-CATEGORY": It is essential to know that you are able to add as many TOP CATEGORIES as you wish and furthermore you can add as many SUB-CATEGORIES to every TOP CATEGORY.
 - The SUB-CATEGORIES can either be written in caps or lower cases, it doesn't matter **BUT** you will have to use the same pattern aus shown in the picture above. (Top-Categories have to be in column A and Sub-Categories have to be in column B)
 - ***Important***: The sub-categories will also be ***the keywords the parser uses*** to find categories in your bank statements so make sure they suit your reason for transfer! The more sub categories you choose, the more keywords you will generate. As a result the overview will be more accurate.
 
