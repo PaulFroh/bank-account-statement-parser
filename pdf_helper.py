@@ -172,7 +172,7 @@ def execute_parse(path_excel, path_to_pdfs, search_categories = False):
             # if there are new categories call the config gui to let the user decide which one he wants
             # update the categories dict
             if search_categories:
-                found_categories = config_helper.search_for_new_categories(dealings, path_excel)
+                found_categories = config_helper.search_for_new_categories(dealings)
 
             excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
@@ -182,8 +182,13 @@ def execute_parse(path_excel, path_to_pdfs, search_categories = False):
                 path_to_pdfs += os.sep
 
             for pdf in os.listdir(path_to_pdfs):
-                first_row, dealings, month = parse_pdf(pdf)
+                first_row, dealings, month = parse_pdf(path_to_pdfs + pdf)
                 dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+                dealings = identify_category(dealings, categories)
+                
+                if search_categories:
+                    found_categories = config_helper.search_for_new_categories(dealings, found_categories)
+                
                 excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
                 print('')
         

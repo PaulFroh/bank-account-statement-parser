@@ -20,8 +20,20 @@ class ConfigHelper(unittest.TestCase):
         dealings.append([0, '3.04.2023', 'Sonstiges', 'Eventim', '', '30'])
         dealings.append([0, '3.04.2023', 'Sonstiges', 'Das ist ein Test', '', '30'])
         
-        found_categories = config_helper.search_for_new_categories(dealings, '')
+        found_categories = config_helper.search_for_new_categories(dealings)
         self.assertEqual({'Lebensmittel': ['Rewe'], 'Streaming': ['Netflix'], 'Freizeit': ['Eventim']}, found_categories)
+        
+        
+        # test if the appending of new categories is working
+        dealings2 = []
+        dealings2.append([0, '3.04.2023', 'Sonstiges', 'Das ist ein Test', '', '30'])
+        dealings2.append([0, '3.04.2023', 'Sonstiges', 'Tegut', '', '30'])
+        dealings2.append([0, '3.04.2023', 'Sonstiges', 'WOW', '', '30'])
+        dealings2.append([0, '3.04.2023', 'Sonstiges', 'Das ist ein weiterer Test', '', '30'])
+        
+        found_categories = config_helper.search_for_new_categories(dealings2, found_categories)
+        print(found_categories)
+        self.assertEqual({'Lebensmittel': ['Rewe', 'Tegut'], 'Streaming': ['Netflix', 'WOW'], 'Freizeit': ['Eventim']}, found_categories)
         
         
         # test if the return value is correct if there are not new categories
@@ -29,7 +41,7 @@ class ConfigHelper(unittest.TestCase):
         dealings[1][2] = 'Streaming'
         dealings[2][2] = 'Freizeit'
         
-        found_categories = config_helper.search_for_new_categories(dealings, '')
+        found_categories = config_helper.search_for_new_categories(dealings, None)
         self.assertEqual(None, found_categories)
         
         

@@ -64,10 +64,12 @@ def load_config_categories():
     return categories
 
 
-def search_for_new_categories(dealings, path_excel):
+def search_for_new_categories(dealings, append_categories = None):
     categories = load_config_categories()
-    print(categories)
-    found_categories = {}
+    if append_categories == None:
+        found_categories = {}
+    else:
+        found_categories = append_categories
     
     for row in dealings:
         use = row[excel_helper.USE_ROW]
@@ -78,12 +80,13 @@ def search_for_new_categories(dealings, path_excel):
                 for keyword in categories[category]:
                     keyword_str = str(keyword).upper()
                     if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
+                        
                         if category not in found_categories.keys():
                             found_categories[category] = []
                         
                         if keyword not in found_categories[category]:
                             found_categories[category].append(keyword)
-
+    
     return found_categories if len(found_categories) > 0 else None
 
 
