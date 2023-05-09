@@ -7,6 +7,7 @@ import datetime
 import os
 
 import excel_helper
+import config_helper
 
 path_xlsx = ""
 bank = ""
@@ -79,19 +80,23 @@ def get_relevant_lines(path, page_count):
     
     return all_lines
 
-def identify_category(string, categories):
-    upper_string = string.upper()
+def identify_category(dealings, categories):
+    for row in dealings:
+        use = row[excel_helper.USE_ROW]
+        upper_use = use.upper()
 
-    for category in categories:
-        for keyword in categories[category]:
-            keyword_str = str(keyword).upper()
-            if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_string):
-                return category, keyword
+        if row[excel_helper.CATEGORY_ROW] == 'Sonstiges':
+            for category in categories:
+                for keyword in categories[category]:
+                    keyword_str = str(keyword).upper()
+                    if re.search('\\b' + re.escape(keyword_str) + '\\b', upper_use):
+                        row[excel_helper.CATEGORY_ROW] = category
+                        row[excel_helper.KEYWORD_ROW] = keyword
 
-    return "Sonstiges", ""
+    return dealings
 
 
-def get_dealings(lines, categories):
+def get_dealings(lines):
     use = ''
     date = ''
     index = 0
@@ -119,10 +124,9 @@ def get_dealings(lines, categories):
             #print(use)
             price = parse_number(element.split()[-1])
             #print(price)
-            category, keyword = identify_category(use, categories)
 
             if date != '':
-                array.append([index, date, category, use, keyword, price])
+                array.append([index, date, 'Sonstiges', use, keyword, price])
 
             use = ''
             date = ''
@@ -141,26 +145,35 @@ def get_dealings(lines, categories):
     return array # erster Eintrag ist alter Kontostand
 
 
-def parse_pdf(path, categories):
+def parse_pdf(path):
     print("Path to PDF: " + path)
     first_row = ["", "Date", "Category", "Use", "Keyword", "Price"]
     
     page_count, month = get_info(path)
     lines = get_relevant_lines(path, page_count)
-    dealings = get_dealings(lines, categories)
+    dealings = get_dealings(lines)
 
     return first_row, dealings, month
 
 
-def execute_parse(path_excel, path_to_pdfs):
+def execute_parse(path_excel, path_to_pdfs, search_categories = False):
+    # get signal if the search for new categories is active
+    found_categories = None
 
     try:
         excel_file = openpyxl.load_workbook(path_excel)
         categories = excel_helper.load_categories_from_excel(excel_file)
 
         if os.path.isfile(path_to_pdfs):
-            first_row, dealings, month = parse_pdf(path_to_pdfs, categories)
+            first_row, dealings, month = parse_pdf(path_to_pdfs)
             dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+            dealings = identify_category(dealings, categories)
+            # if signal is true load categories from config an check for new categories
+            # if there are new categories call the config gui to let the user decide which one he wants
+            # update the categories dict
+            if search_categories:
+                found_categories = config_helper.search_for_new_categories(dealings)
+
             excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
             
 
@@ -169,16 +182,27 @@ def execute_parse(path_excel, path_to_pdfs):
                 path_to_pdfs += os.sep
 
             for pdf in os.listdir(path_to_pdfs):
-                first_row, dealings, month = parse_pdf(pdf, categories)
+                first_row, dealings, month = parse_pdf(path_to_pdfs + pdf)
                 dealings = excel_helper.check_for_manual_changes(excel_file, dealings, month)
+                dealings = identify_category(dealings, categories)
+                
+                if search_categories:
+                    found_categories = config_helper.search_for_new_categories(dealings, found_categories)
+                
                 excel_helper.export_to_excel(excel_file, first_row, dealings, month, path_excel)
                 print('')
         
         else:
             messagebox.showerror(title='Error', message='This PDF file does not exist!')
             return False
+        
+        # update the overview table in the excel with the new categories
     except Exception as e:
         print(traceback.format_exc())
         messagebox.showerror(title='Error', message='An error has occurred!\n' + str(e))
-        return False
-    return True
+        return None
+    
+    if found_categories == None:
+        messagebox.showinfo("Info", "The file was successfully parsed")
+    
+    return found_categories

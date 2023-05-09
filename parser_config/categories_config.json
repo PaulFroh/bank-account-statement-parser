@@ -1,0 +1,119 @@
+{
+    "categories": {
+        "Kategorien": [],
+        "Einkommen": [
+            "Gehalt",
+            "Taschengeld",
+            "Renten Service"
+        ],
+        "Lebensmittel": [
+            "Rewe",
+            "Studierendenwerk",
+            "ULB1",
+            "Penny",
+            "Alnatura",
+            "Tegut",
+            "Aldi",
+            "Lidl",
+            "Netto",
+            "Kaufland",
+            "Bormuth",
+            "Wiener Feinbackerei",
+            "Schroeer",
+            "Baecker",
+            "Flink",
+            "AllDrink"
+        ],
+        "Essen": [
+            "Backfactory",
+            "Woodrich",
+            "Pizzeria",
+            "McDonalds",
+            "MoschMosch",
+            "Burger King",
+            "Subway",
+            "Shoppen Hof",
+            "Ditsch",
+            "Hans im Glueck",
+            "Kebap"
+        ],
+        "Kleidung": [
+            "Superdry",
+            "Snocks",
+            "Otrium",
+            "Uniqlo",
+            "Benetton",
+            "ASOSCOMLTD",
+            "Pull . Bear",
+            "HM"
+        ],
+        "Gesundheit": [
+            "Hansemerkur",
+            "Apotheke",
+            "Krankenkasse"
+        ],
+        "Drogerie": [
+            "Rossmann",
+            "DM"
+        ],
+        "Bildung": [
+            "Hochschule Darmstadt",
+            "Technische Universit\u00e4t",
+            "Hugendubel"
+        ],
+        "Wohnen": [
+            "Strom",
+            "Gas",
+            "Miete",
+            "Telekom",
+            "Vodafone",
+            "Garage",
+            "IKEA",
+            "Bauhaus",
+            "Obi",
+            "Hornbach"
+        ],
+        "Transport": [
+            "HUK- Coburg",
+            "Shell",
+            "Jet",
+            "Bolt",
+            "DB Vertrieb",
+            "Aral",
+            "Parkhaus",
+            "Fahrschein",
+            "Book-n-Drive"
+        ],
+        "Sport": [
+            "McFit",
+            "Tauchclub",
+            "Decathlon",
+            "Canyon",
+            "MyLifeStyleClub"
+        ],
+        "Investments": [
+            "Trade Republic",
+            "Scalable Capital"
+        ],
+        "Streaming": [
+            "Netflix",
+            "WOW",
+            "Amznprime",
+            "Disney"
+        ],
+        "Freizeit": [
+            "Eventim",
+            "Schlachthof",
+            "Eintracht Frankfurt"
+        ],
+        "Urlaub": [
+            "Airbnb"
+        ],
+        "Konsum": [
+            "PayPal",
+            "American Express",
+            "Amazon",
+            "Karte"
+        ]
+    }
+}
