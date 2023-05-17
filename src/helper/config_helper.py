@@ -4,7 +4,7 @@ import re
 
 from tkinter import messagebox
 
-import excel_helper
+import helper.excel_helper as excel_helper
 
 
 def get_config_folder():

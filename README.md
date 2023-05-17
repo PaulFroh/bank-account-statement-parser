@@ -70,3 +70,14 @@ To run pyinstaller (if you already installed pyinstaller via pip) use
 pyinstaller --clean .\Bank-Account-Statement-Parser-EXE.spec
 ```
 if you want the directory, use the -DIR.spec file.
+
+# Tests
+To run the tests simply type the following command in your terminal, when you are at the top level folder (in this case bank-account-statement-parser)
+```bash
+python -m unittest discover -t .\src\ -s .\src\tests\
+```
+This will execute all tests. You can specify a pattern to execute specific tests, this is done by the -k option.
+```bash
+python -m unittest discover -t .\src\ -s .\src\tests\ -k test.ExampleTest.test_example
+```
+This will only execute the test_example in the ExampleTest class.

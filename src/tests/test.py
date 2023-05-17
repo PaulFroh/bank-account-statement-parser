@@ -1,8 +1,8 @@
 import unittest
 import openpyxl
 
-import config_helper
-import excel_helper
+import src.helper.config_helper as config_helper
+import src.helper.excel_helper as excel_helper
 
 class ExampleTest(unittest.TestCase):
 

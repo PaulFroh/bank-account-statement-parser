@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-import pdf_helper
-import config_helper
 
-from excel_helper import export_new_categories
+import helper.pdf_helper as pdf_helper
+import helper.config_helper as config_helper
+from helper.excel_helper import export_new_categories
 
 class MainGUI(tk.Tk):   # definition of the class
 
