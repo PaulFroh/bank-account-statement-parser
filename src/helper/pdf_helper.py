@@ -126,12 +126,14 @@ def get_dealings(lines):
             #print(price)
 
             if date != '':
+                #print(str(index) + " " + date + " Sonstiges" + use + " " + keyword + " " + str(price))
                 array.append([index, date, 'Sonstiges', use, keyword, price])
+                index += 1
 
             use = ''
             date = ''
             keyword = ''
-            index += 1
+            
             #print('')
 
         if re.search("Kontostand", element) and len(array) > 1:
