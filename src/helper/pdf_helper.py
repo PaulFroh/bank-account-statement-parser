@@ -13,41 +13,6 @@ path_xlsx = ""
 bank = ""
 
 
-def get_info(path):
-    global bank
-
-    reader = PdfReader(path)
-    page = reader.pages[0]
-    text = page.extract_text()
-
-    if re.search("Sparkasse*", text): # search for the bank name
-        bank = "SPARKASSE"
-        text = re.search("Kontoauszug [0-9\/]*", text).group()
-        date_text = text.split(' ')[1]
-        print(date_text)
-    
-    elif re.search("Sparda- Bank", text):
-        bank = "SPARDA"
-        text = re.search("Kontoauszug Nr. [0-9\/]*", text).group()
-        date_text = text.split(' ')[2]
-        print(date_text)
-    
-    else:
-        messagebox.showerror(title='Error', message='This bank is not known!')
-        exit()
-
-    date = datetime.datetime.strptime(date_text, '%m/%Y').date()
-    month = date.strftime("%B %Y")
-
-    return len(reader.pages), month
-
-def get_text(path, page_number=0):
-    reader = PdfReader(path)
-    page = reader.pages[page_number]
-    text = page.extract_text()
-    
-    return text
-
 def parse_number(string):
     result = re.search('\S+,[0-9]+', string).group()
     result = result.replace('.', '')
@@ -60,23 +25,25 @@ def parse_number(string):
     return number
 
 
-def get_relevant_lines(path, page_count):
+def get_relevant_lines(path):
     all_lines = []
+    reader = PdfReader(path)        
 
-    for i in range(page_count):
-        text = get_text(path, i)
+    for page_number in range(len(reader.pages)):
+        page = reader.pages[page_number]
+        text = page.extract_text()
         text = re.sub(' +', ' ', text) # cut all doubles of whitespace
 
         lines = text.splitlines()
         unwanted_chars = {' ', '  '}
         lines = [ele for ele in lines if ele not in unwanted_chars] # cut all empty elements
 
-        i = 0
+        page_number = 0
         for element in lines:
-            i += 1
+            page_number += 1
             if re.search('Betrag EUR', element) or re.search('Betrag in EUR', element): # First is for Sparkasse and second for Sparda
                 break
-        all_lines += lines[i:]
+        all_lines += lines[page_number:]
     
     return all_lines
 
@@ -100,6 +67,7 @@ def get_dealings(lines):
     use = ''
     date = ''
     index = 0
+    month = ''
     array = []
     for element in lines:
         #print(element)
@@ -137,21 +105,25 @@ def get_dealings(lines):
         if re.search("Kontostand", element) and len(array) > 1:
             kontostand = parse_number(element.split()[-1])
             date = re.search('[0-3]?[0-9][/.][0-3]?[0-9][/.][0-9]{4}', element).group()
+            
+            date_object = datetime.datetime.strptime(date, '%d.%m.%Y').date()
+            month = date_object.strftime("%B %Y")
 
             array.append([index, date, "KONTOSTAND", element, '', kontostand])
             break
         
 
-    return array # erster Eintrag ist alter Kontostand
+    return array, month # erster Eintrag ist alter Kontostand
 
 
 def parse_pdf(path):
     print("Path to PDF: " + path)
     first_row = ["", "Date", "Category", "Use", "Keyword", "Price"]
     
-    page_count, month = get_info(path)
-    lines = get_relevant_lines(path, page_count)
-    dealings = get_dealings(lines)
+    lines = get_relevant_lines(path)
+    dealings, month = get_dealings(lines)
+    
+    print("Parsed PDF from: " + month)
 
     return first_row, dealings, month
 
