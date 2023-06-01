@@ -92,6 +92,9 @@ def insert_formulas(excel_sheet, index_str: str):
     excel_sheet["P" + index_str].value = "=SUM(C" + index_str + ":N" + index_str + ")"
     excel_sheet["Q" + index_str].value = "=SUM(C" + index_str + ":N" + index_str + ")/COUNTA(C" + index_str + ":N" + index_str + ")"
     
+    excel_sheet["P" + index_str].number_format = "0.00"
+    excel_sheet["Q" + index_str].number_format = "0.00"
+    
 def update_formulas(excel_sheet, start):
     index = start +1
     while not (excel_sheet["A" + str(index)].value == None and excel_sheet["B" + str(index)].value == None):
