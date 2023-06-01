@@ -1,6 +1,5 @@
 {
     "categories": {
-        "Kategorien": [],
         "Einkommen": [
             "Gehalt",
             "Taschengeld",
@@ -35,7 +34,8 @@
             "Shoppen Hof",
             "Ditsch",
             "Hans im Glueck",
-            "Kebap"
+            "Kebap",
+            "LOsteria"
         ],
         "Kleidung": [
             "Superdry",
@@ -119,6 +119,10 @@
             "American Express",
             "Amazon",
             "Karte"
+        ],
+        "Cloudservice": [
+            "Hetzner"
         ]
+
     }
 }
