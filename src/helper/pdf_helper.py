@@ -25,6 +25,30 @@ def parse_number(string):
     return number
 
 
+def identify_bank(path):
+    reader = PdfReader(path)
+    page = reader.pages[0]
+    text = page.extract_text()
+    
+    if re.search("Sparkasse*", text): # search for the bank name
+        bank = "SPARKASSE"
+        text = re.search("Kontoauszug [0-9\/]*", text).group()
+        date_text = text.split(' ')[1]
+        print(date_text)
+
+    elif re.search("Sparda- Bank", text):
+        bank = "SPARDA"
+        text = re.search("Kontoauszug Nr. [0-9\/]*", text).group()
+        date_text = text.split(' ')[2]
+        print(date_text)
+
+    else:
+        messagebox.showerror(title='Error', message='This bank is not known!')
+        exit()
+        
+    return bank
+
+
 def get_relevant_lines(path):
     all_lines = []
     reader = PdfReader(path)        
@@ -120,8 +144,10 @@ def get_dealings(lines):
 
 def parse_pdf(path):
     print("Path to PDF: " + path)
+    global bank
     first_row = ["", "Date", "Category", "Use", "Keyword", "Price"]
     
+    bank = identify_bank(path)
     lines = get_relevant_lines(path)
     dealings, month = get_dealings(lines)
     
