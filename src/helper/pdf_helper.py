@@ -90,7 +90,7 @@ def identify_category(dealings, categories):
 def get_dealings(lines):
     use = ''
     date = ''
-    index = 0
+    index = 1
     month = ''
     array = []
     for element in lines:
